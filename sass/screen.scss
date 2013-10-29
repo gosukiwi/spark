@@ -1,0 +1,236 @@
+@mixin background-gradient($from, $to) {
+    background-image: -webkit-gradient(linear, left top, left bottom, from($from), to($to));
+    background-image: -webkit-linear-gradient(top, $from, $to);
+    background-image:    -moz-linear-gradient(top, $from, $to);
+    background-image:      -o-linear-gradient(top, $from, $to);
+    background-image:         linear-gradient(to bottom, $from, $to);
+}
+
+@mixin transition($transition-property, $transition-time, $method) {
+	-webkit-transition: $transition-property $transition-time $method;
+	-moz-transition: $transition-property $transition-time $method;
+	-ms-transition: $transition-property $transition-time $method;
+	-o-transition: $transition-property $transition-time $method;
+	transition: $transition-property $transition-time $method;
+}
+
+@mixin transition($transition-property, $transition-time) {
+	-webkit-transition: $transition-property $transition-time;
+	-moz-transition: $transition-property $transition-time;
+	-ms-transition: $transition-property $transition-time;
+	-o-transition: $transition-property $transition-time;
+	transition: $transition-property $transition-time;
+}
+
+$grey: #393939;
+$dark-grey: #242424;
+$light-grey: #4D4E50;
+$pale-grey: #E2E2E2;
+
+html {
+    background-color: $dark-grey;
+    color: #f1f1f1;
+    font-family: 'Noto Sans', sans-serif;
+    margin: 0px;
+    padding: 0px;
+}
+
+body {
+    margin: 0px;
+    padding: 0px;
+    font-size: 12px;
+}
+
+div#status {
+    height: 3%;
+    margin: 0px;
+    padding: 0px;
+    color: $pale-grey;
+    font-size: 12px;
+    background-color: $dark-grey;
+
+    p {
+        padding-top: 3px;
+        padding-left: 5px;
+    }
+}
+
+div#canvas-container {
+    margin: 0px;
+    padding: 0px;
+    overflow: scroll;
+    background-color: $light-grey;
+    height: 97%;
+    width: 75%;
+    float: left;
+    text-align: center;
+}
+
+#canvas {
+    width: 960px;
+    height: 1100px;
+}
+
+
+
+div#menu {
+    width: 25%;
+    margin: 0px;
+    float: right;
+    background-color: #181818;
+    height: 97%;
+
+    div#elements {
+        padding: 5px;
+        padding-bottom: 0px;
+
+        i {
+            @include transition(background-color, 5);
+            background-color: #505354;
+            display: inline-block;
+            width: 25px;
+            height: 25px;
+            text-align: center;
+            line-height: 25px;
+            cursor: pointer;
+            font-size: 15px;
+
+
+            &:hover {
+                background-color: #2d2d2d;
+            }
+        }
+    }
+
+    div.menu-box {
+        margin: 0px;
+        padding: 5px;
+
+        div.prop-container {
+            background-color: #2d2d2d;
+            background-image: url('../img/box-bg.gif');
+            background-repeat: repeat-x;
+        }
+
+        div#properties-container {
+            text-align: center;
+            margin: 0px;
+            padding: 0px;
+
+            > div {
+                background-color: #4f5253;
+                margin-bottom: 2px;
+                position: relative;
+
+                label {
+                    text-align: left;
+                    text-transform: uppercase;
+                    position: absolute;
+                    left: 3px;
+                    top: 1px;
+                    font-size: 12px;
+                }
+
+                input {
+                    background-color: #4f5253;
+                    color: #272727;
+                    text-align: right;
+                    border: none;
+                    position: absolute;
+                    right: 0px;
+                    top: 0px;
+                    font-size: 12px;
+                    padding-right: 3px;
+                }
+            }
+
+            button {
+                width: 100%;
+                display: block;
+                background-color: #3f3f3f;
+                text-align: center;
+                border: none;
+                color: white;
+                text-transform: uppercase;
+                font-size: 11px;
+                padding: 2px;
+                cursor: pointer;
+
+                &:hover {
+                    opacity: 0.85;
+                }
+            }
+
+            div.separator {
+                height: 50px;
+                background-color: #2d2d2d;
+            }
+
+            button.warning {
+                background-color: #e44972;
+            }
+
+            textarea {
+                width: 100%;
+                background-color: $pale-grey;
+                border: 1px solid $grey;
+                outline: none;
+                height: 250px;
+            }
+        }
+
+        ul {
+            border-bottom: 1px solid black;
+
+            li {
+                display: inline-block;
+                color: #b2b2b2;
+                @include background-gradient(#595959, #323232);
+                border-top: 1px solid #646667;
+                text-transform: uppercase;
+                padding: 5px 10px;
+                font-size: 11px;
+                cursor: pointer;
+                width: 80px;
+                text-align: center;
+
+                &.active {
+                    color: white;
+                    @include background-gradient(#828383, #646566);
+                }
+
+                &:hover {
+                    opacity: 0.9;
+                }
+            }
+        }
+
+        div {
+            background-color: #2d2d2d;
+            padding: 10px;
+            font-size: 12px;
+
+            div.button-list {
+                i {
+                    font-size: 14px;
+                    background-color: $pale-grey;
+                    padding: 5px;
+                    color: $dark-grey;
+                    width: 20px;
+                    display: inline-block;
+                    text-align: center;
+                    cursor: pointer;
+
+                    &:hover {
+                        background-color: $grey;
+                        color: $pale-grey;
+                    }
+                }
+            }
+        }
+    }
+}
+
+div.clear {
+    clear: both;
+}
