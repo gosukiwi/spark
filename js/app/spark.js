@@ -22,6 +22,7 @@ define(['underscore', 'jquery', 'app/elements/canvas', 'app/view', 'app/history'
         'lineNumbers': true,
         'theme': 'monokai',
         'lineWrapping': true,
+        'value': "/* Your custom CSS goes here */\n"
     });
 
     function onSaveElementProperties() {
