@@ -112,8 +112,10 @@ define(['jquery', 'underscore', 'app/elementFactory', 'app/element', 'app/evente
             var el = canvas.selected();
             // If an element is selected apply the new CSS
             if (el) {
+                el.css.clear();
                 el.applyCSS(text);
             } else {
+                canvas.css.clear();
                 canvas.applyCSS(text);
             }
         };

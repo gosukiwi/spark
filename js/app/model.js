@@ -36,6 +36,11 @@ define(['app/eventer'], function (eventer) {
                 return _.clone(obj);
             },
 
+            // Delete all attributes from the object
+            clear: function () {
+                obj = {};
+            },
+
             // Set a value
             set: function(attr, val) {
                 if(_.isObject(attr)) {
