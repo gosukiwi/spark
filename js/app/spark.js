@@ -11,6 +11,7 @@ define(['underscore', 'jquery', 'app/elements/canvas', 'app/view', 'app/history'
 
     canvasElement(undefined, function (elem) {
         canvas = elem;
+        canvas.properties.set('id', 'page-body');
     });
 
     function evtUpdateElementProps() {
