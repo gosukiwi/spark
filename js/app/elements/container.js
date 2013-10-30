@@ -7,6 +7,7 @@ define(['app/element', 'app/view'], function (element, view) {
     return function (container, success) {
         var container = element(container);
 
+        container.type = 'container';
         container.el(view('elements/container.mustache'));
         container.isContainer = true;
         container.columnsConsumed = 0;

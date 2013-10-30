@@ -48,9 +48,10 @@ define(['underscore', 'jquery', 'app/elements/canvas', 'app/view', 'app/history'
      * Draws the given object onto a menu container as a
      * list of key-values
      */
-    function drawHtmlProperties(props) {
+    function drawHtmlProperties(element) {
         var container = propsContainer,
             formatted_properties = [],
+            props = element.properties.props(),
             html;
 
         _.each(_.keys(props), function (key) {
@@ -58,7 +59,7 @@ define(['underscore', 'jquery', 'app/elements/canvas', 'app/view', 'app/history'
         });
 
         html = view('spark-ui/element-properties.mustache',
-            { properties: formatted_properties });
+            { type: element.type, properties: formatted_properties });
 
         container.empty();
         container.append(html);
@@ -76,15 +77,15 @@ define(['underscore', 'jquery', 'app/elements/canvas', 'app/view', 'app/history'
         propsContainer.empty();
         $('#css-textarea').val('');
         // TODO: Set canvas properties
-        drawHtmlProperties(canvas.properties.props());
+        drawHtmlProperties(canvas);
     });
 
     canvas.onSelectionChanged(function (elem) {
-        drawHtmlProperties(elem.properties.props());
+        drawHtmlProperties(elem);
         drawCssProperties(elem.css.props());
     });
 
-    drawHtmlProperties(canvas.properties.props());
+    drawHtmlProperties(canvas);
     drawCssProperties(canvas.css.props());
 
     return {

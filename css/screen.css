@@ -71,18 +71,21 @@ div#menu {
       text-align: center;
       margin: 0px;
       padding: 0px; }
-      div#menu div.menu-box div#properties-container > div {
+      div#menu div.menu-box div#properties-container h1 {
+        text-transform: uppercase;
+        margin-bottom: 5px; }
+      div#menu div.menu-box div#properties-container div.prop-item {
         background-color: #4f5253;
         margin-bottom: 2px;
         position: relative; }
-        div#menu div.menu-box div#properties-container > div label {
+        div#menu div.menu-box div#properties-container div.prop-item label {
           text-align: left;
           text-transform: uppercase;
           position: absolute;
           left: 3px;
           top: 1px;
           font-size: 12px; }
-        div#menu div.menu-box div#properties-container > div input {
+        div#menu div.menu-box div#properties-container div.prop-item input {
           outline: none;
           background-color: #4f5253;
           color: #272727;
@@ -106,9 +109,8 @@ div#menu {
         cursor: pointer; }
         div#menu div.menu-box div#properties-container button:hover {
           opacity: 0.85; }
-      div#menu div.menu-box div#properties-container div.separator {
-        height: 50px;
-        background-color: #2d2d2d; }
+      div#menu div.menu-box div#properties-container button#btn-save-changed {
+        margin-top: 25px; }
       div#menu div.menu-box div#properties-container button.warning {
         background-color: #e44972; }
       div#menu div.menu-box div#properties-container textarea {

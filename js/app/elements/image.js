@@ -25,6 +25,7 @@ define(['app/element', 'app/view'], function (element, view) {
         image = element(container);
 
         image.el(view('elements/image.mustache'));
+        image.type = 'image';
         image.isContainer = false;
         image.properties.set({
             'width': 100,

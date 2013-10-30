@@ -38,6 +38,7 @@ define(['jquery', 'underscore', 'app/elementFactory', 'app/element', 'app/evente
          * PROPERTIES
          */
 
+        canvas.type = 'canvas';
         canvas.el($('#canvas').contents().find('body'));
         canvas.isContainer = true;
 

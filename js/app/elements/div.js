@@ -8,6 +8,7 @@ define(['underscore', 'jquery', 'app/element', 'app/view', 'jquery-ui'],
     function create (container) {
         var div = element(container);
 
+        div.type = 'div';
         div.el(view('elements/div.mustache', { cols: 12 }));
         div.isContainer = true;
 
