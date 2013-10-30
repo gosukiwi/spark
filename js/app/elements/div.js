@@ -47,7 +47,7 @@ define(['underscore', 'jquery', 'app/element', 'app/view', 'jquery-ui'],
     return function (container, success) {
         var form;
 
-        if(container === undefined) {
+        if(container.type !== 'container') {
             view('alert.mustache', {
                 title: 'Oops!',
                 text: 'This element must be inside a container'
