@@ -59,6 +59,20 @@ define(['app/eventer', 'app/model', 'md5', 'app/history'],
                 return widget;
             },
 
+            'getCSSText': function () {
+                var text = '',
+                    key,
+                    props = widget.css.props();
+
+                for (key in props) {
+                    if (props.hasOwnProperty(key)) {
+                        text += key + ': ' + props[key] + ";\n";
+                    }
+                }
+
+                return text;
+            },
+
             'applyCSS': function (css) {
                 // First remove all styles 
                 widget.el().removeAttr('style');

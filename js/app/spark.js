@@ -33,17 +33,14 @@ define(['underscore', 'jquery', 'app/elements/canvas', 'app/view', 'app/history'
     }
 
     function drawCssMenu(element) {
-        var text = '',
-            key,
-            props = element.css.props();
-
-        for (key in props) {
-            if (props.hasOwnProperty(key)) {
-                text += key + ': ' + props[key] + ";\n";
-            }
+        if(element.isContainer) {
+            // If it's a container draw the global css
+            $('#css-textarea').val(
+                $('#canvas').contents().find('#canvas-css').text());
+        } else {
+            // Else draw the custom element css
+            $('#css-textarea').val(element.getCSSText());
         }
-
-        $('#css-textarea').val(text);
     }
 
     /*
