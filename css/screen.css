@@ -73,8 +73,8 @@ div#menu {
       padding: 0px; }
       div#menu div.menu-box div#properties-container h1 {
         text-transform: uppercase;
-        margin-bottom: 5px;
-        margin-top: 5px; }
+        padding-bottom: 5px;
+        padding-top: 5px; }
         div#menu div.menu-box div#properties-container h1 i {
           cursor: pointer;
           margin-left: 5px; }
