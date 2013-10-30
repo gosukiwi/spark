@@ -79,6 +79,9 @@ define(['underscore', 'jquery', 'app/elements/canvas', 'app/view', 'app/history'
         drawCssProperties(elem.css.props());
     });
 
+    drawHtmlProperties(canvas.properties.props());
+    drawCssProperties(canvas.properties.props());
+
     return {
         // Binding and jquery ui initialization
         init: function () {
