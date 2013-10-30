@@ -4,11 +4,10 @@
 define(['jquery', 'underscore', 'app/elementFactory', 'app/element', 'app/eventer'], function ($, _, factory, element, eventer) {
     "use strict";
 
-    var elements = [],
-        listener = eventer.listener();
-
     return function (container, success) {
-        var canvas = element(container);
+        var canvas = element(container),
+            elements = [],
+            listener = eventer.listener();
 
         function elementCreated(elem) {
             // When an element is selected
@@ -46,15 +45,15 @@ define(['jquery', 'underscore', 'app/elementFactory', 'app/element', 'app/evente
          * METHODS
          */
 
-        canvas.onSelectionChanged = function () {
-            listener.listen('onSelectionChanged');
+        canvas.onSelectionChanged = function (cb) {
+            listener.listen('onSelectionChanged', cb);
             // chainability
             return canvas;
         };
 
 
-        canvas.onNothingSelected = function () {
-            listener.listen('onNothingSelected');
+        canvas.onNothingSelected = function (cb) {
+            listener.listen('onNothingSelected', cb);
             // chainability
             return canvas;
         };
@@ -74,6 +73,25 @@ define(['jquery', 'underscore', 'app/elementFactory', 'app/element', 'app/evente
         // Add a new element to the canvas
         canvas.add = function (type) {
             factory(canvas, type, elementCreated);
+        };
+
+        canvas.cssChanged = function (text) {
+            var el = canvas.selected();
+            // If an element is selected apply the new CSS
+            if (el) {
+                el.applyCSS(text);
+            } else {
+                canvas.applyCSS(text);
+            }
+        };
+
+        canvas.htmlChanged = function (props) {
+            var el = canvas.selected();
+            if (el) {
+                el.applyHTML(props);
+            } else {
+                canvas.applyHTML(props);
+            }
         };
 
         // Do

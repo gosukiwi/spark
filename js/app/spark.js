@@ -70,7 +70,7 @@ define(['underscore', 'jquery', 'app/elements/canvas', 'app/view', 'app/history'
         propsContainer.empty();
         $('#css-textarea').val('');
         // TODO: Set canvas properties
-        drawHtmlProperties(canvas.properties.props);
+        drawHtmlProperties(canvas.properties.props());
     });
 
     canvas.onSelectionChanged(function (elem) {
