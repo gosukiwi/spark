@@ -114,6 +114,11 @@ define(['underscore', 'jquery', 'app/elements/canvas', 'app/view', 'app/history'
             // Finally simulate a click on all first tabs
             $('.menu-box li:first-child').trigger('click');
 
+            // Make text easier to update
+            $('div.prop-item').click(function () {
+                $(this).find('input').focus();
+            });
+
             // Listen when updating CSS
             $('div#css-container textarea').keyup(function () {
                 canvas.cssChanged($(this).val());

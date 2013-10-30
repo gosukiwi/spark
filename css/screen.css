@@ -83,6 +83,7 @@ div#menu {
           top: 1px;
           font-size: 12px; }
         div#menu div.menu-box div#properties-container > div input {
+          outline: none;
           background-color: #4f5253;
           color: #272727;
           text-align: right;
