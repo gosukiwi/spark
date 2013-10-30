@@ -95,7 +95,6 @@ div#menu {
             cursor: pointer;
             font-size: 15px;
 
-
             &:hover {
                 background-color: #2d2d2d;
             }
@@ -110,6 +109,8 @@ div#menu {
             background-color: #2d2d2d;
             background-image: url('../img/box-bg.gif');
             background-repeat: repeat-x;
+
+            
         }
 
         div#properties-container {
@@ -128,17 +129,19 @@ div#menu {
             }
 
             div.prop-item {
-                background-color: #4f5253;
                 margin-bottom: 2px;
                 position: relative;
 
                 label {
+                background-color: #4f5253;
                     text-align: left;
                     text-transform: uppercase;
                     position: absolute;
-                    left: 3px;
-                    top: 1px;
+                    top: 2px;
+                    left: 0px;
+                    padding-left: 3px;
                     font-size: 12px;
+                    width: 20%;
                 }
 
                 input {
@@ -217,31 +220,15 @@ div#menu {
         }
 
         div {
-            background-color: #2d2d2d;
-            padding: 10px;
-            font-size: 12px;
-
-            div.button-list {
-                i {
-                    font-size: 14px;
-                    background-color: $pale-grey;
-                    padding: 5px;
-                    color: $dark-grey;
-                    width: 20px;
-                    display: inline-block;
-                    text-align: center;
-                    cursor: pointer;
-
-                    &:hover {
-                        background-color: $grey;
-                        color: $pale-grey;
-                    }
-                }
-            }
+            
         }
     }
 }
 
 div.clear {
     clear: both;
+}
+
+div#css-container {
+    position: relative;
 }

@@ -3,16 +3,25 @@
  * Works with the main UI
  */
 
-define(['underscore', 'jquery', 'app/elements/canvas', 'app/view', 'app/history', 'jquery-ui'], function (_, $, canvasElement, view, history) {
+define(['underscore', 'jquery', 'app/elements/canvas', 'app/view', 'app/history', 'jquery-ui', 'codemirror'], function (_, $, canvasElement, view, history) {
     "use strict";
 
     var propsContainer = $('#properties-container'),
-        canvas;
+        canvas,
+        cssEditor;
 
     // Create a canvas and save it
     canvasElement(undefined, function (elem) {
         canvas = elem;
         canvas.properties.set('id', 'page-body');
+    });
+
+    // Bind ace editor
+    cssEditor = CodeMirror.fromTextArea(document.getElementById('css-textarea'), {
+        'mode': 'text/css',
+        'lineNumbers': true,
+        'theme': 'monokai',
+        'lineWrapping': true,
     });
 
     function onSaveElementProperties() {
@@ -35,11 +44,11 @@ define(['underscore', 'jquery', 'app/elements/canvas', 'app/view', 'app/history'
     function drawCssMenu(element) {
         if(element.isContainer) {
             // If it's a container draw the global css
-            $('#css-textarea').val(
+            cssEditor.setValue(
                 $('#canvas').contents().find('#canvas-css').text());
         } else {
             // Else draw the custom element css
-            $('#css-textarea').val(element.getCSSText());
+            cssEditor.setValue(element.getCSSText());
         }
     }
 
@@ -143,8 +152,8 @@ define(['underscore', 'jquery', 'app/elements/canvas', 'app/view', 'app/history'
             $('.menu-box li:first-child').trigger('click');
 
             // Listen when updating CSS
-            $('div#css-container textarea').keyup(function () {
-                canvas.cssChanged($(this).val());
+            cssEditor.on('change', function () {
+                canvas.cssChanged(cssEditor.getValue());
             });
 
             // Undo button
