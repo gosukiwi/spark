@@ -109,8 +109,6 @@ div#menu {
             background-color: #2d2d2d;
             background-image: url('../img/box-bg.gif');
             background-repeat: repeat-x;
-
-            
         }
 
         div#properties-container {
@@ -121,6 +119,7 @@ div#menu {
             h1 {
                 text-transform: uppercase;
                 margin-bottom: 5px;
+                margin-top: 5px;
 
                 i {
                     cursor: pointer;
@@ -131,9 +130,10 @@ div#menu {
             div.prop-item {
                 margin-bottom: 2px;
                 position: relative;
+                height: 17px;
 
                 label {
-                background-color: #4f5253;
+                    background-color: #4f5253;
                     text-align: left;
                     text-transform: uppercase;
                     position: absolute;

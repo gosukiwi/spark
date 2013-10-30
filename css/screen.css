@@ -73,13 +73,15 @@ div#menu {
       padding: 0px; }
       div#menu div.menu-box div#properties-container h1 {
         text-transform: uppercase;
-        margin-bottom: 5px; }
+        margin-bottom: 5px;
+        margin-top: 5px; }
         div#menu div.menu-box div#properties-container h1 i {
           cursor: pointer;
           margin-left: 5px; }
       div#menu div.menu-box div#properties-container div.prop-item {
         margin-bottom: 2px;
-        position: relative; }
+        position: relative;
+        height: 17px; }
         div#menu div.menu-box div#properties-container div.prop-item label {
           background-color: #4f5253;
           text-align: left;
