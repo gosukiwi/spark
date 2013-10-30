@@ -11,6 +11,7 @@ define(['app/eventer', 'app/model', 'md5', 'app/history'],
         widget = {
             // Attributes
             'isContainer': false,
+            'isResizable': false,
             'properties': model({}),
             'css': model({}),
             'container': container,

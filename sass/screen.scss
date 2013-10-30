@@ -120,6 +120,11 @@ div#menu {
             h1 {
                 text-transform: uppercase;
                 margin-bottom: 5px;
+
+                i {
+                    cursor: pointer;
+                    margin-left: 5px;
+                }
             }
 
             div.prop-item {
@@ -147,6 +152,7 @@ div#menu {
                     top: 0px;
                     font-size: 12px;
                     padding-right: 3px;
+                    width: 80%;
                 }
             }
 
@@ -167,7 +173,7 @@ div#menu {
                 }
             }
 
-            button#btn-save-changed {
+            button#btn-save-changes {
                 margin-top: 25px;
             }
 

@@ -73,7 +73,7 @@ define(['jquery', 'underscore', 'app/elementFactory', 'app/element', 'app/evente
 
         // Add a new element to the canvas
         canvas.add = function (type) {
-            factory(canvas, type, elementCreated);
+            factory(canvas.selected() || canvas, type, elementCreated);
         };
 
         canvas.cssChanged = function (text) {

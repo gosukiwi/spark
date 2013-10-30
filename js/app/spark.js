@@ -31,11 +31,11 @@ define(['underscore', 'jquery', 'app/elements/canvas', 'app/view', 'app/history'
         propsContainer.empty();
     }
 
-    function drawCssProperties(props) {
+    function drawCssMenu(element) {
         var text = '',
             key;
 
-        for (key in props) {
+        for (key in element.css.props()) {
             if (props.hasOwnProperty(key)) {
                 text += key + ': ' + props[key] + ";\n";
             }
@@ -48,7 +48,7 @@ define(['underscore', 'jquery', 'app/elements/canvas', 'app/view', 'app/history'
      * Draws the given object onto a menu container as a
      * list of key-values
      */
-    function drawHtmlProperties(element) {
+    function drawHtmlMenu(element) {
         var container = propsContainer,
             formatted_properties = [],
             props = element.properties.props(),
@@ -58,8 +58,11 @@ define(['underscore', 'jquery', 'app/elements/canvas', 'app/view', 'app/history'
             formatted_properties.push({ name: key, value: props[key] });
         });
 
-        html = view('spark-ui/element-properties.mustache',
-            { type: element.type, properties: formatted_properties });
+        html = view('spark-ui/element-properties.mustache', { 
+            'type': element.type, 
+            'parent': element.container ? element.container.type : 'No parent',
+            'properties': formatted_properties 
+        });
 
         container.empty();
         container.append(html);
@@ -67,26 +70,49 @@ define(['underscore', 'jquery', 'app/elements/canvas', 'app/view', 'app/history'
         document.getElementById('btn-save-changes').onclick =
             evtUpdateElementProps;
 
-        // Make text easier to update
+        /* HTML Bindings */
+        $('#btn-parent').tooltip();
+        
         $('div.prop-item').click(function () {
             $(this).find('input').focus();
+        });
+
+        $('#btn-parent').click(function () {
+            if(element.container === undefined) {
+                view('alert.mustache', {
+                    title: 'Oops!',
+                    text: 'The canvas element has no parent.'
+                }).dialog({
+                    modal: true,
+                    buttons: {
+                        'Ok': function () {
+                            $(this).dialog('close');
+                        }
+                    }
+                });
+            } else if(element.container.type === 'canvas') {
+                element.selected(false);
+                element.container.selected(true);
+                drawHtmlMenu(element.container);
+                drawCssMenu(element.container);
+            } else {
+                element.container.selected(true);
+            }
         });
     }
 
     canvas.onNothingSelected(function () {
-        propsContainer.empty();
-        $('#css-textarea').val('');
-        // TODO: Set canvas properties
-        drawHtmlProperties(canvas);
+        drawHtmlMenu(canvas);
+        drawCssMenu(canvas);
     });
 
     canvas.onSelectionChanged(function (elem) {
-        drawHtmlProperties(elem);
-        drawCssProperties(elem.css.props());
+        drawHtmlMenu(elem);
+        drawCssMenu(elem);
     });
 
-    drawHtmlProperties(canvas);
-    drawCssProperties(canvas.css.props());
+    drawHtmlMenu(canvas);
+    drawCssMenu(canvas);
 
     return {
         // Binding and jquery ui initialization

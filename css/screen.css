@@ -74,6 +74,9 @@ div#menu {
       div#menu div.menu-box div#properties-container h1 {
         text-transform: uppercase;
         margin-bottom: 5px; }
+        div#menu div.menu-box div#properties-container h1 i {
+          cursor: pointer;
+          margin-left: 5px; }
       div#menu div.menu-box div#properties-container div.prop-item {
         background-color: #4f5253;
         margin-bottom: 2px;
@@ -95,7 +98,8 @@ div#menu {
           right: 0px;
           top: 0px;
           font-size: 12px;
-          padding-right: 3px; }
+          padding-right: 3px;
+          width: 80%; }
       div#menu div.menu-box div#properties-container button {
         width: 100%;
         display: block;
@@ -109,7 +113,7 @@ div#menu {
         cursor: pointer; }
         div#menu div.menu-box div#properties-container button:hover {
           opacity: 0.85; }
-      div#menu div.menu-box div#properties-container button#btn-save-changed {
+      div#menu div.menu-box div#properties-container button#btn-save-changes {
         margin-top: 25px; }
       div#menu div.menu-box div#properties-container button.warning {
         background-color: #e44972; }

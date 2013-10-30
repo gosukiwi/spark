@@ -27,9 +27,11 @@ define(['app/element', 'app/view'], function (element, view) {
         image.el(view('elements/image.mustache'));
         image.type = 'image';
         image.isContainer = false;
+        image.isResizable = true;
         image.properties.set({
             'width': 100,
-            'height': 100
+            'height': 100,
+            'src': 'http://placehold.it/100x100'
         });
 
         success(image);
