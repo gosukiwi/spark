@@ -67,11 +67,12 @@ define(['underscore', 'jquery', 'app/elements/canvas', 'app/view', 'app/history'
 
         container.empty();
         container.append(html);
+
+        /* HTML Bindings */
         document.getElementById('btn-delete').onclick = evtDeleteElement;
         document.getElementById('btn-save-changes').onclick =
             evtUpdateElementProps;
 
-        /* HTML Bindings */
         $('#btn-parent').tooltip();
 
         $('div.prop-item').click(function () {
