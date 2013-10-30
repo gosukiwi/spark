@@ -27,8 +27,7 @@ define(['underscore', 'jquery', 'app/elements/canvas', 'app/view', 'app/history'
     }
 
     function evtDeleteElement() {
-        canvas.removeCurrent();
-        propsContainer.empty();
+        canvas.remove();
     }
 
     function drawCssMenu(element) {
@@ -80,26 +79,16 @@ define(['underscore', 'jquery', 'app/elements/canvas', 'app/view', 'app/history'
         });
 
         $('#btn-parent').click(function () {
-            if (element.container === undefined) {
-                view('alert.mustache', {
-                    title: 'Oops!',
-                    text: 'The canvas element has no parent.'
-                }).dialog({
-                    modal: true,
-                    buttons: {
-                        'Ok': function () {
-                            $(this).dialog('close');
-                        }
-                    }
-                });
-            } else if (element.container.type === 'canvas') {
-                element.selected(false);
-                element.container.selected(true);
-                drawHtmlMenu(element.container);
-                drawCssMenu(element.container);
-            } else {
-                element.container.selected(true);
-            }
+            if (element.container !== undefined) {
+                if (element.container.type === 'canvas') {
+                    element.selected(false);
+                    element.container.selected(true);
+                    drawHtmlMenu(canvas);
+                    drawCssMenu(canvas);
+                } else {
+                    element.container.selected(true);
+                }
+            } 
         });
     }
 

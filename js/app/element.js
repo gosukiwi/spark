@@ -89,6 +89,11 @@ define(['app/eventer', 'app/model', 'md5', 'app/history'],
 
             'append': function (elem) {
                 widget.el().append(elem.el());
+            },
+
+            'remove': function () {
+                widget.selected(false);
+                widget.el().remove();
             }
         };
 

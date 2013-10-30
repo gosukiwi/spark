@@ -1,7 +1,7 @@
 /*
  * An element representing a canvas
  */
-define(['jquery', 'underscore', 'app/elementFactory', 'app/element', 'app/eventer'], function ($, _, factory, element, eventer) {
+define(['jquery', 'underscore', 'app/elementFactory', 'app/element', 'app/eventer', 'app/history'], function ($, _, factory, element, eventer, history) {
     "use strict";
 
     return function (container, success) {
@@ -31,6 +31,13 @@ define(['jquery', 'underscore', 'app/elementFactory', 'app/element', 'app/evente
                 canvas.el().append(elem.el());
             }
             elem.selected(true);
+
+            // Finally add the action to history
+            history.add(function () {
+                if(confirm('Are you sure you want to delete the ' + elem.type + ' element?')) {
+                    canvas.remove(elem);
+                }
+            });
         }
 
 
@@ -45,6 +52,31 @@ define(['jquery', 'underscore', 'app/elementFactory', 'app/element', 'app/evente
         /*
          * METHODS
          */
+
+        canvas.remove = function (elem) {
+            elem = elem || canvas.selected();
+            if (elem) {
+                // Select container
+                if(elem.container.type === 'canvas') {
+                    listener.trigger('onNothingSelected');
+                } else {
+                    elem.container.selected(true);
+                }
+
+                // Remove the element from the container
+                elem.remove();
+
+                // When removing and element also remove all children
+                _.each(_.filter(elements, function (el) {
+                    return el.container === elem;
+                }), function (elem) {
+                    elem.remove();
+                    elements = _.without(elements, elem);
+                });
+
+                elements = _.without(elements, elem);
+            }
+        };
 
         canvas.onSelectionChanged = function (cb) {
             listener.listen('onSelectionChanged', cb);
