@@ -2,8 +2,8 @@
  * Create a new element based on the type
  */
 
-define(['app/elements/div', 'app/elements/image', 'app/elements/container'], 
-        function (div, image, containerDiv) {
+define(['app/elements/canvas', 'app/elements/div', 'app/elements/image', 'app/elements/container'], 
+        function (canvas, div, image, containerDiv) {
     "use strict";
 
     // Turns a jQuery DOM element into a spark element

@@ -3,10 +3,15 @@
  * Works with the main UI
  */
 
-define(['underscore', 'jquery', 'app/canvas', 'app/view', 'app/history', 'jquery-ui'], function (_, $, canvas, view, history) {
+define(['underscore', 'jquery', 'app/elements/canvas', 'app/view', 'app/history', 'jquery-ui'], function (_, $, canvasElement, view, history) {
     "use strict";
 
-    var propsContainer = $('#properties-container');
+    var propsContainer = $('#properties-container'),
+        canvas;
+
+    canvasElement(undefined, function (elem) {
+        canvas = elem;
+    });
 
     function evtUpdateElementProps() {
         var props = {};
@@ -65,6 +70,7 @@ define(['underscore', 'jquery', 'app/canvas', 'app/view', 'app/history', 'jquery
         propsContainer.empty();
         $('#css-textarea').val('');
         // TODO: Set canvas properties
+        drawHtmlProperties(canvas.properties.props);
     });
 
     canvas.onSelectionChanged(function (elem) {
