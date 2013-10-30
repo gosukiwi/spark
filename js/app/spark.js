@@ -9,12 +9,13 @@ define(['underscore', 'jquery', 'app/elements/canvas', 'app/view', 'app/history'
     var propsContainer = $('#properties-container'),
         canvas;
 
+    // Create a canvas and save it
     canvasElement(undefined, function (elem) {
         canvas = elem;
         canvas.properties.set('id', 'page-body');
     });
 
-    function evtUpdateElementProps() {
+    function onSaveElementProperties() {
         var props = {};
 
         // Get all settings
@@ -26,7 +27,8 @@ define(['underscore', 'jquery', 'app/elements/canvas', 'app/view', 'app/history'
         canvas.htmlChanged(props);
     }
 
-    function evtDeleteElement() {
+    function onDeleteElement() {
+        // Remove selected element from canvas
         canvas.remove();
     }
 
@@ -68,9 +70,9 @@ define(['underscore', 'jquery', 'app/elements/canvas', 'app/view', 'app/history'
         container.append(html);
 
         /* HTML Bindings */
-        document.getElementById('btn-delete').onclick = evtDeleteElement;
+        document.getElementById('btn-delete').onclick = onDeleteElement;
         document.getElementById('btn-save-changes').onclick =
-            evtUpdateElementProps;
+            onSaveElementProperties;
 
         $('#btn-parent').tooltip();
 
