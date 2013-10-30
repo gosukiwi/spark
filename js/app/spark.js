@@ -33,9 +33,10 @@ define(['underscore', 'jquery', 'app/elements/canvas', 'app/view', 'app/history'
 
     function drawCssMenu(element) {
         var text = '',
-            key;
+            key,
+            props = element.css.props();
 
-        for (key in element.css.props()) {
+        for (key in props) {
             if (props.hasOwnProperty(key)) {
                 text += key + ': ' + props[key] + ";\n";
             }
@@ -58,10 +59,10 @@ define(['underscore', 'jquery', 'app/elements/canvas', 'app/view', 'app/history'
             formatted_properties.push({ name: key, value: props[key] });
         });
 
-        html = view('spark-ui/element-properties.mustache', { 
-            'type': element.type, 
+        html = view('spark-ui/element-properties.mustache', {
+            'type': element.type,
             'parent': element.container ? element.container.type : 'No parent',
-            'properties': formatted_properties 
+            'properties': formatted_properties
         });
 
         container.empty();
@@ -72,13 +73,13 @@ define(['underscore', 'jquery', 'app/elements/canvas', 'app/view', 'app/history'
 
         /* HTML Bindings */
         $('#btn-parent').tooltip();
-        
+
         $('div.prop-item').click(function () {
             $(this).find('input').focus();
         });
 
         $('#btn-parent').click(function () {
-            if(element.container === undefined) {
+            if (element.container === undefined) {
                 view('alert.mustache', {
                     title: 'Oops!',
                     text: 'The canvas element has no parent.'
@@ -90,7 +91,7 @@ define(['underscore', 'jquery', 'app/elements/canvas', 'app/view', 'app/history'
                         }
                     }
                 });
-            } else if(element.container.type === 'canvas') {
+            } else if (element.container.type === 'canvas') {
                 element.selected(false);
                 element.container.selected(true);
                 drawHtmlMenu(element.container);
@@ -101,16 +102,22 @@ define(['underscore', 'jquery', 'app/elements/canvas', 'app/view', 'app/history'
         });
     }
 
+    // When nothing is selected on the canvas, draw
+    // the canvas html and css props
     canvas.onNothingSelected(function () {
         drawHtmlMenu(canvas);
         drawCssMenu(canvas);
     });
 
+    // When something is selected, draw that element
+    // html and css props
     canvas.onSelectionChanged(function (elem) {
         drawHtmlMenu(elem);
         drawCssMenu(elem);
     });
 
+    // Draw the initial state of the menu, as nothing
+    // is selected yet, just draw the canvas
     drawHtmlMenu(canvas);
     drawCssMenu(canvas);
 
