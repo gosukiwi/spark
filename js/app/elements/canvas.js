@@ -33,10 +33,6 @@ define(['jquery', 'underscore', 'app/elementFactory', 'app/element', 'app/evente
             elem.selected(true);
         }
 
-        function setCSSRules(text) {
-            $('#canvas').contents().find('#canvas-css').text(text);
-        }
-
         /*
          * PROPERTIES
          */
@@ -105,18 +101,7 @@ define(['jquery', 'underscore', 'app/elementFactory', 'app/element', 'app/evente
         };
 
         canvas.cssChanged = function (text) {
-            var el = canvas.selected();
-            // If an element is selected apply the new CSS
-            if (el) {
-                if(el.isContainer) {
-                    setCSSRules(text);
-                } else {
-                    el.css.clear();
-                    el.applyCSS(text);
-                }
-            } else {
-                setCSSRules(text);
-            }
+            $('#canvas').contents().find('#canvas-css').text(text);
         };
 
         canvas.htmlChanged = function (props) {

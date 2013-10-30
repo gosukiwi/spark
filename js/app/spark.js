@@ -42,14 +42,8 @@ define(['underscore', 'jquery', 'app/elements/canvas', 'app/view', 'app/history'
     }
 
     function drawCssMenu(element) {
-        if(element.isContainer) {
-            // If it's a container draw the global css
-            cssEditor.setValue(
-                $('#canvas').contents().find('#canvas-css').text());
-        } else {
-            // Else draw the custom element css
-            cssEditor.setValue(element.getCSSText());
-        }
+        cssEditor.setValue(
+            $('#canvas').contents().find('#canvas-css').text());
     }
 
     /*

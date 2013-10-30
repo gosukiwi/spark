@@ -13,7 +13,6 @@ define(['app/eventer', 'app/model', 'md5', 'app/history'],
             'isContainer': false,
             'isResizable': false,
             'properties': model({}),
-            'css': model({}),
             'container': container,
 
             // Methods
@@ -59,38 +58,6 @@ define(['app/eventer', 'app/model', 'md5', 'app/history'],
                 return widget;
             },
 
-            'getCSSText': function () {
-                var text = '',
-                    key,
-                    props = widget.css.props();
-
-                for (key in props) {
-                    if (props.hasOwnProperty(key)) {
-                        text += key + ': ' + props[key] + ";\n";
-                    }
-                }
-
-                return text;
-            },
-
-            'applyCSS': function (css) {
-                // First remove all styles 
-                widget.el().removeAttr('style');
-
-                // Now set them
-                _.map(css.split("\n"), function (line) {
-                    if(line.indexOf(':') === -1) {
-                        return;
-                    }
-
-                    var data = line.split(':'),
-                        attr = data[0].trim(),
-                        val = data[1].split(';')[0];
-
-                    widget.css.set(attr, val);
-                });
-            },
-
             'applyHTML': function (props) {
                 var key;
             
@@ -122,10 +89,6 @@ define(['app/eventer', 'app/model', 'md5', 'app/history'],
             history.add(function () {
                 widget.properties.set(key, val);
             });
-        });
-
-        widget.css.onChanged(function (key, val) {
-            widget.el().css(key, val);
         });
 
         return widget;
