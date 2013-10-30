@@ -1,7 +1,7 @@
 /*
  * An element representing a canvas
  */
-define(['jquery', 'underscore', 'app/elementFactory', 'app/element', 'app/eventer', 'app/history'], function ($, _, factory, element, eventer, history) {
+define(['jquery', 'underscore', 'app/elementFactory', 'app/element', 'app/eventer'], function ($, _, factory, element, eventer) {
     "use strict";
 
     return function (container, success) {
@@ -31,13 +31,6 @@ define(['jquery', 'underscore', 'app/elementFactory', 'app/element', 'app/evente
                 canvas.el().append(elem.el());
             }
             elem.selected(true);
-
-            // Finally add the action to history
-            history.add(function () {
-                if(confirm('Are you sure you want to delete the ' + elem.type + ' element?')) {
-                    canvas.remove(elem);
-                }
-            });
         }
 
 
