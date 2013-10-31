@@ -2,14 +2,16 @@
  * Create a new element based on the type
  */
 
-define(['app/elements/canvas', 'app/elements/div', 'app/elements/image', 'app/elements/container', 'app/elements/text', 'app/elements/grid'], 
-        function (canvas, div, image, containerDiv, text, grid) {
+define(['app/elements/div', 'app/elements/image', 'app/elements/container', 'app/elements/text', 'app/elements/grid'], 
+        function (div, image, containerDiv, text, grid) {
     "use strict";
 
     // Turns a jQuery DOM element into a spark element
-    return function (container, type, success, meta) {
+    return function (canvas, type, success, meta) {
+        var container = canvas.selected() || canvas;
+
         if (type === 'div') {
-            div(container, success, meta);
+            div(canvas, container, success, meta);
         } else if (type === 'container') {
             containerDiv(container, success);
         } else if (type === 'grid') {

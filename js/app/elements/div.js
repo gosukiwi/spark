@@ -24,7 +24,9 @@ define(['underscore', 'jquery', 'app/element', 'app/view', 'jquery-ui'],
             } else if(key === 'columns') {
                 div.el().removeAttr(key);
 
-                if(div.el().attr('class') && div.el().attr('class').indexOf('grid_') !== -1) {
+                if(div.el().attr('class') 
+                    && div.el().attr('class').indexOf('grid_') !== -1) 
+                {
                     _.chain(div.el().attr('class').split(' '))
                         .filter(function (c) {
                             return c.indexOf('grid_') !== -1;
@@ -42,7 +44,7 @@ define(['underscore', 'jquery', 'app/element', 'app/view', 'jquery-ui'],
         return div;
     }
 
-    return function (container, success, cols) {
+    return function (canvas, container, success, cols) {
         var form,
             el;
 
@@ -77,6 +79,15 @@ define(['underscore', 'jquery', 'app/element', 'app/view', 'jquery-ui'],
             }
         }
 
+
         success(el);
+
+        // make sure the element is selected
+        el.selected(true);
+        // add a para
+        canvas.add('text');
+        // select it again
+        el.selected(true);
+
     }
 });

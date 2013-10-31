@@ -28,6 +28,7 @@ define(['app/element', 'app/view'], function (element, view) {
             'content': 'Example text',
         });
 
-        success(text);
+        // Call success if exists
+        _.isFunction(success) && success(text);
     }
 });
