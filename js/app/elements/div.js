@@ -9,7 +9,7 @@ define(['underscore', 'jquery', 'app/element', 'app/view', 'jquery-ui'],
         var div = element(container);
 
         div.type = 'div';
-        div.el(view('elements/div.mustache', { cols: 12 }));
+        div.el(view('elements/div.mustache'));
         div.isContainer = true;
 
         div.properties.onChanged(function (key, val) {
@@ -24,30 +24,29 @@ define(['underscore', 'jquery', 'app/element', 'app/view', 'jquery-ui'],
             } else if(key === 'columns') {
                 div.el().removeAttr(key);
 
-                // Filter the grid_ class and update it
-                _.chain(div.el().attr('class').split(' '))
-                    .filter(function (c) {
-                        return c.indexOf('grid_') !== -1;
-                    })
-                    .map(function (c) {
-                        div.el().removeClass(c);
-                        div.el().addClass('grid_' + val);
-                    });
+                if(div.el().attr('class') && div.el().attr('class').indexOf('grid_') !== -1) {
+                    _.chain(div.el().attr('class').split(' '))
+                        .filter(function (c) {
+                            return c.indexOf('grid_') !== -1;
+                        })
+                        .map(function (c) {
+                            div.el().removeClass(c);
+                            div.el().addClass('grid_' + val);
+                        });
+                } else {
+                    div.el().addClass('grid_' + val);
+                }
             }
-        });
-
-        div.properties.set({
-            'columns': 12,
-            'offset': 0
         });
 
         return div;
     }
 
     return function (container, success, cols) {
-        var form;
+        var form,
+            el;
 
-        if(container.type !== 'container') {
+        if(!container.isContainer) {
             view('alert.mustache', {
                 title: 'Oops!',
                 text: 'This element must be inside a container'
@@ -62,53 +61,22 @@ define(['underscore', 'jquery', 'app/element', 'app/view', 'jquery-ui'],
             return;
         }
 
+        el = create(container);
+
         // If we already have the column number
         if(_.isNumber(cols)) {
-            var el = create(container);
-            el.properties.set('columns', cols);
-            success(el);
-            return;
+            el.properties.set({
+                'columns': cols,
+                'offset': 0
+            });
+
+            el.container.columnsConsumed += cols;
+            if(el.container.columnsConsumed > 12) {
+                el.container.columnsConsumed = cols;
+                el.el().before('<div class="clear"></div>');
+            }
         }
 
-        // If not, find out
-        form = view('forms/form-div-create.mustache');
-        form.find('#slide-cols').slider({
-            min: 1,
-            max: 12,
-            value: 12,
-            title: 'Create DIV',
-            change: function (e, ui) {
-                form.find('#lbl-cols')
-                    .attr('cols', ui.value)
-                    .text(ui.value + ' columns');
-            }
-        });
-
-        form.dialog({
-            modal: true,
-            buttons: {
-                'Ok': function () {
-                    var el = create(container),
-                        cols;
-        
-                    cols = parseInt(form.find('#lbl-cols').attr('cols'), 10);
-                    
-                    el.properties.set('columns', cols);
-                    success(el);
-
-                    el.container.columnsConsumed += cols;
-                    if(el.container.columnsConsumed > 12) {
-                        el.container.columnsConsumed = cols;
-                        el.el().before('<div class="clear"></div>');
-                    }
-
-                    $(this).dialog('close');
-                },
-
-                'Cancel': function () {
-                    $(this).dialog('close');
-                }
-            }
-        });
+        success(el);
     }
 });
