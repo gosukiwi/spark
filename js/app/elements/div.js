@@ -44,7 +44,7 @@ define(['underscore', 'jquery', 'app/element', 'app/view', 'jquery-ui'],
         return div;
     }
 
-    return function (container, success) {
+    return function (container, success, cols) {
         var form;
 
         if(container.type !== 'container') {
@@ -62,6 +62,15 @@ define(['underscore', 'jquery', 'app/element', 'app/view', 'jquery-ui'],
             return;
         }
 
+        // If we already have the column number
+        if(_.isNumber(cols)) {
+            var el = create(container);
+            el.properties.set('columns', cols);
+            success(el);
+            return;
+        }
+
+        // If not, find out
         form = view('forms/form-div-create.mustache');
         form.find('#slide-cols').slider({
             min: 1,

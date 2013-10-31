@@ -96,8 +96,9 @@ define(['jquery', 'underscore', 'app/elementFactory', 'app/element', 'app/evente
         };
 
         // Add a new element to the canvas
-        canvas.add = function (type) {
-            factory(canvas.selected() || canvas, type, elementCreated);
+        // The meta argument is metadata
+        canvas.add = function (type, meta) {
+            factory(canvas.selected() || canvas, type, elementCreated, meta);
         };
 
         canvas.cssChanged = function (text) {
