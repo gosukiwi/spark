@@ -32,7 +32,7 @@ define(['underscore', 'jquery', 'app/view', 'jquery-ui'],
             buttons: {
                 'Ok': function () {
                     var cols = $(this).find('#grid-input').val();
-                    _.each(cols.split(','), function (n) {
+                    _.each(cols.split(' '), function (n) {
                         var column = parseInt(n, 10);
                         if(_.isNaN(columns)) {
                             alert('Invalid column definition!');
