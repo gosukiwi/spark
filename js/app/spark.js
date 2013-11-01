@@ -3,7 +3,7 @@
  * Works with the main UI
  */
 
-define(['underscore', 'jquery', 'app/elements/canvas', 'jaf/view', 'app/history', 'jquery-ui', 'codemirror'], function (_, $, canvasElement, view, history) {
+define(['underscore', 'jquery', 'app/elements/canvas', 'jaf/view', 'app/lib/history', 'jquery-ui', 'codemirror'], function (_, $, canvasElement, view, history) {
     "use strict";
 
     var propsContainer = $('#properties-container'),
