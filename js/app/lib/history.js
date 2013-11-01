@@ -1,6 +1,8 @@
 /*
- * Used for undo, each action is saved
- * onto history
+ * Library: history
+ *
+ * Used for undo, each action is saved onto history as a function
+ * which when called it undoes an action
  */
 define(function () {
     var history = [],
