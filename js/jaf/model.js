@@ -2,7 +2,7 @@
  * Just a bunch of attributes with events
  */
 
-define(['app/eventer'], function (eventer) {
+define(['jaf/eventer'], function (eventer) {
     "use strict";
 
     function setMany(model, attrs) {

@@ -1,4 +1,4 @@
-define(['app/eventer', 'app/model', 'md5', 'app/history'], 
+define(['jaf/eventer', 'jaf/model', 'md5', 'app/history'], 
         function (eventer, model, md5, history) {
     "use strict";
 

@@ -1,7 +1,7 @@
 /*
  * An element representing a canvas
  */
-define(['jquery', 'underscore', 'app/elements/elementFactory', 'app/elements/element', 'app/eventer'], function ($, _, factory, element, eventer) {
+define(['jquery', 'underscore', 'app/elements/elementFactory', 'app/elements/element', 'jaf/eventer'], function ($, _, factory, element, eventer) {
     "use strict";
 
     return function (container, success) {

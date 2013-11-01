@@ -1,7 +1,7 @@
 /*
  * An element representing an image
  */
-define(['app/elements/element', 'app/view'], function (element, view) {
+define(['app/elements/element', 'jaf/view'], function (element, view) {
     "use strict";
 
     return function (container, success) {
