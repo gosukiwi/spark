@@ -32,7 +32,7 @@ define(['underscore'], function (_) {
                     // If the callback is defined
                     if(callbacks[name] && callbacks[name].length > 0) {
                         // Get the arguments
-                        args = _.rest(Array.prototype.slice.call(arguments));
+                        args = _.rest(_.toArray(arguments));
 
                         // Call with selected arguments
                         _.map(callbacks[name], function (cb) {
