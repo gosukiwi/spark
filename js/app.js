@@ -29,4 +29,8 @@ requirejs(['jquery', 'app/spark'], function ($, spark) {
 
     // Init app
     spark.init();
+
+    window.onload = function () {
+        $('#preloader').fadeOut();
+    };
 });
