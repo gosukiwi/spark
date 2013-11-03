@@ -1,14 +1,26 @@
 /*
- * Application entry point
- * Works with the main UI
+ * Front presenter
+ * Work on the main UI and call other presenters
  */
 
-define(['underscore', 'jquery', 'app/elements/canvas', 'jaf/view', 'app/lib/history', 'jquery-ui', 'codemirror'], function (_, $, canvasElement, view, history) {
+define([
+        'underscore', 
+        'jquery', 
+        'jaf/view', 
+        'app/presenters/library', 
+        'app/elements/canvas', 
+        'app/lib/history', 
+        'jquery-ui', 
+        'codemirror'
+    ], function (_, $, view, presenter_library, canvasElement, history) {
     "use strict";
 
     var propsContainer = $('#properties-container'),
         canvas,
-        cssEditor;
+        cssEditor,
+        presenters = {
+            library: presenter_library
+        };
 
     // Create a canvas and save it
     canvasElement(undefined, function (elem) {
@@ -40,11 +52,6 @@ define(['underscore', 'jquery', 'app/elements/canvas', 'jaf/view', 'app/lib/hist
     function onDeleteElement() {
         // Remove selected element from canvas
         canvas.remove();
-    }
-
-    function drawCssMenu(element) {
-        cssEditor.setValue(
-            $('#canvas').contents().find('#canvas-css').text());
     }
 
     /*
@@ -87,7 +94,6 @@ define(['underscore', 'jquery', 'app/elements/canvas', 'jaf/view', 'app/lib/hist
                     element.selected(false);
                     element.container.selected(true);
                     drawHtmlMenu(canvas);
-                    drawCssMenu(canvas);
                 } else {
                     element.container.selected(true);
                 }
@@ -99,20 +105,17 @@ define(['underscore', 'jquery', 'app/elements/canvas', 'jaf/view', 'app/lib/hist
     // the canvas html and css props
     canvas.onNothingSelected(function () {
         drawHtmlMenu(canvas);
-        drawCssMenu(canvas);
     });
 
     // When something is selected, draw that element
     // html and css props
     canvas.onSelectionChanged(function (elem) {
         drawHtmlMenu(elem);
-        drawCssMenu(elem);
     });
 
     // Draw the initial state of the menu, as nothing
     // is selected yet, just draw the canvas
     drawHtmlMenu(canvas);
-    drawCssMenu(canvas);
 
     return {
         // Binding and jquery ui initialization
@@ -155,6 +158,13 @@ define(['underscore', 'jquery', 'app/elements/canvas', 'jaf/view', 'app/lib/hist
             $('#btn-undo').click(function () {
                 history.undo();
             });
+
+            // Library
+            presenters.library
+                .on('image-added', function () {
+                    canvas.cssChanged(cssEditor.getValue());
+                })
+                .init();
         }
     };
 });

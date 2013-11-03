@@ -20,5 +20,13 @@ requirejs.config({
 
 // Start the main app logic.
 requirejs(['jquery', 'app/spark'], function ($, spark) {
+    // Compatibility check
+    if(!(window.File && window.FileReader && window.FileList && window.Blob)) {
+        alert('Your browser does not support the latest HTML file API');
+        // TODO: Redirect
+        return;
+    }
+
+    // Init app
     spark.init();
 });

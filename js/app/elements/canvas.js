@@ -1,7 +1,14 @@
 /*
  * An element representing a canvas
  */
-define(['jquery', 'underscore', 'app/elements/elementFactory', 'app/elements/element', 'jaf/eventer'], function ($, _, factory, element, eventer) {
+define([
+        'jquery', 
+        'underscore', 
+        'app/helpers/cssParser', 
+        'app/elements/elementFactory', 
+        'app/elements/element', 
+        'jaf/eventer'
+    ], function ($, _, cssParser, factory, element, eventer) {
     "use strict";
 
     return function (container, success) {
@@ -102,7 +109,9 @@ define(['jquery', 'underscore', 'app/elements/elementFactory', 'app/elements/ele
         };
 
         canvas.cssChanged = function (text) {
-            $('#canvas').contents().find('#canvas-css').text(text);
+            // parse the css to use the library
+            var css = cssParser(text);
+            $('#canvas').contents().find('#canvas-css').text(css);
         };
 
         canvas.htmlChanged = function (props) {
