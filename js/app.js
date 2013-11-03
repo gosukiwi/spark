@@ -19,9 +19,7 @@ requirejs.config({
 });
 
 // Start the main app logic.
-requirejs(['jquery', 'app/spark', 'jaf/view'], function ($, spark, view) {
-    var preloader;
-
+requirejs(['jquery', 'app/spark'], function ($, spark) {
     // Compatibility check
     if(!(window.File && window.FileReader && window.FileList && window.Blob)) {
         alert('Your browser does not support the latest HTML file API');
@@ -29,23 +27,6 @@ requirejs(['jquery', 'app/spark', 'jaf/view'], function ($, spark, view) {
         return;
     }
 
-    preloader = {
-        el: view('spark-ui/loading.mustache'),
-        show: function () {
-            this.el.dialog({
-                modal: true
-            });
-        },
-
-        hide: function () {
-            this.el.dialog('close');
-        }
-    };
-
-    preloader.show();
-
     // Init app
     spark.init();
-
-    window.onload = function () { preloader.hide(); };
 });
