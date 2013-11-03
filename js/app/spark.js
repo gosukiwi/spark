@@ -18,9 +18,25 @@ define([
     var propsContainer = $('#properties-container'),
         canvas,
         cssEditor,
+        preloader,
         presenters = {
             library: presenter_library
         };
+
+    preloader = {
+        el: view('spark-ui/loading.mustache'),
+        show: function () {
+            this.el.dialog({
+                modal: true
+            });
+        },
+
+        hide: function () {
+            this.el.dialog('close');
+        }
+    };
+
+    preloader.show();
 
     // Create a canvas and save it
     canvasElement(undefined, function (elem) {
@@ -165,6 +181,8 @@ define([
                     canvas.cssChanged(cssEditor.getValue());
                 })
                 .init();
+
+            preloader.hide();
         }
     };
 });
