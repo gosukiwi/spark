@@ -46,7 +46,8 @@ div#status {
     margin: 0px;
     padding: 0px;
     color: $pale-grey;
-    font-size: 12px;
+    font-size: 11px;
+    text-transform: uppercase;
     background-color: $dark-grey;
 
     p {
@@ -193,7 +194,7 @@ div#menu {
             }
         }
 
-        ul {
+        > ul {
             border-bottom: 1px solid black;
 
             li {
@@ -219,8 +220,54 @@ div#menu {
             }
         }
 
-        div {
-            
+
+        
+    }
+
+    div#menu-library {
+        input[type=file] {
+            display: none;
+        }
+
+        p.button {
+            background-color: $light-grey;
+            display: block;
+            text-align: center;
+            text-transform: uppercase;
+            width: 100%;
+            cursor: pointer;
+            padding: 3px 0px;
+            font-size: 11px;
+
+            &:hover {
+                background-color: $grey;
+            }
+        }
+
+        ul#library-file-list {
+            max-height: 200px;
+            overflow: auto;
+
+            li {
+                position: relative;
+
+                &:hover {
+                    background-color: $grey;
+                }
+
+                img {
+                    margin-right: 3px;
+                }
+
+                i {
+                    position: absolute;
+                    right: 5px;
+                    top: 5px;
+                    text-transform: none;
+                    font-weight: 600;
+                    cursor: pointer;
+                }
+            }
         }
     }
 }

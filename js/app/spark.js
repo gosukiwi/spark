@@ -161,7 +161,7 @@ define([
 
             // Library
             presenters.library
-                .on('image-added', function () {
+                .on('image-added image-removed', function () {
                     canvas.cssChanged(cssEditor.getValue());
                 })
                 .init();

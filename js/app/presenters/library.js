@@ -2,7 +2,7 @@
  * The library allows the user to select files from her computer and
  * use them in the canvas and css
  */
-define(['jquery', 'underscore', 'jaf/globals', 'jaf/presenter'], function ($, _, globals, presenter) {
+define(['jquery', 'underscore', 'jaf/globals', 'jaf/presenter', 'jaf/view'], function ($, _, globals, presenter, view) {
     var el = $('#menu-library'),
         filesContainer = el.find('#library-items-container');
 
@@ -12,13 +12,35 @@ define(['jquery', 'underscore', 'jaf/globals', 'jaf/presenter'], function ($, _,
         init: function () {
             var self = this;
 
-            function drawFiles() {
-                filesContainer.empty();
-                _.each(_.keys(globals.library), function (name) {
-                    var file = globals.library[name];
+            function removeImage() {
+                var name = $(this).attr('file-name');
+                delete globals.library[name];
+                self.trigger('image-removed');
+                drawFiles();
+            }
 
-                    filesContainer.append('<img width="50" height="50" src="' + file.target.result + '" />');
+            function drawFiles() {
+                var formatted_files,
+                    html;
+
+                formatted_files = _.map(_.keys(globals.library), 
+                    function (name) {
+                    return { 
+                        name: name, 
+                        file: globals.library[name].target.result 
+                    };
                 });
+
+                html = view('spark-ui/library.mustache', {
+                    files: formatted_files
+                });
+
+                // Remove all html and bindings
+                filesContainer.empty();
+                // Create html
+                filesContainer.html(html);
+                // Create bindings
+                filesContainer.find('i').click(removeImage);
             }
 
             el.find('#library-file-select').change(function (e) {
@@ -32,6 +54,10 @@ define(['jquery', 'underscore', 'jaf/globals', 'jaf/presenter'], function ($, _,
                         self.trigger('image-added');
                     };
                 });
+            });
+
+            el.find('#btn-add-file').click(function () {
+                el.find('#library-file-select').click();
             });
         }
     });
