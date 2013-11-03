@@ -26,7 +26,7 @@ div#canvas-container {
   margin: 0px;
   padding: 0px;
   overflow: scroll;
-  background-color: #4d4e50;
+  background-color: #5A5B5D;
   height: 97%;
   width: 75%;
   float: left;
@@ -51,7 +51,6 @@ div#menu {
       -ms-transition: background-color 5;
       -o-transition: background-color 5;
       transition: background-color 5;
-      background-color: #505354;
       display: inline-block;
       width: 25px;
       height: 25px;
@@ -201,3 +200,22 @@ div#preloader {
   div#preloader p {
     text-align: center;
     padding: 20px; }
+
+/* Scrollbars */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px; }
+
+::-webkit-scrollbar-button:start:decrement,
+::-webkit-scrollbar-button:end:increment {
+  height: 0px;
+  display: block;
+  background-color: #4d4e50; }
+
+::-webkit-scrollbar-track-piece {
+  background-color: #4d4e50;
+  -webkit-border-radius: 6px; }
+
+::-webkit-scrollbar-thumb:vertical {
+  background-color: #393939;
+  -webkit-border-radius: 6px; }
