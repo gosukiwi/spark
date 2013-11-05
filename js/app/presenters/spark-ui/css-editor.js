@@ -1,4 +1,4 @@
-define(['jquery', 'underscore', 'jaf/presenter', 'jaf/view'], function ($, _, presenter, view) {
+define(['jquery', 'underscore', 'jaf/presenter', 'codemirror'], function ($, _, presenter) {
     return presenter.extend({
         init: function () {
             var self = this,

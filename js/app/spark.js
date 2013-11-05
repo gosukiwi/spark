@@ -12,8 +12,7 @@ define([
         'app/presenters/spark-ui/css-editor', 
         'app/elements/canvas', 
         'app/lib/history', 
-        'jquery-ui', 
-        'codemirror'
+        'jquery-ui'
     ], function (_, $, presenter_library, presenter_properties, presenter_css, canvasElement, history) {
     "use strict";
 
@@ -49,19 +48,20 @@ define([
     
     // Presenters
 
-    // library
+    // library presenter
     presenters.library
         .on('image-added image-removed', function () {
             canvas.cssChanged(cssEditor.getValue());
         })
         .init();
     
-    // html properties
+    // html properties presenter
     canvas.onSelected(function (elem) {
         presenters.properties.draw(elem);
     });
     presenters.properties.init(canvas);
     
+    // css editor presenter
     presenters.css
         .on('change', function (css) {
             canvas.css(css);
@@ -100,8 +100,6 @@ define([
             // Finally simulate a click on all first tabs
             $('.menu-box li:first-child').trigger('click');
 
-            // Listen when updating CSS
-            
             // Undo button
             $('#btn-undo').click(function () {
                 history.undo();
@@ -111,8 +109,6 @@ define([
             $('#btn-save').click(function () {
                 save();
             });
-            
-            
         }
     };
 });
