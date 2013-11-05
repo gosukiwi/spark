@@ -1,26 +1,15 @@
 /*
  * An element representing a div layer
  */
-define(['underscore', 'jquery', 'jaf/view', 'jquery-ui'], 
+define(['underscore', 'jquery', 'jaf/view'], 
         function (_, $, view) {
     "use strict";
 
-    return function (canvas) {
+    return function (canvas, success) {
         var form;
 
         if(canvas.type !== 'canvas') {
-            view('alert.mustache', {
-                title: 'Oops!',
-                text: 'This element can only reside inside canvas'
-            }).dialog({
-                modal: true,
-                buttons: {
-                    'Ok': function () {
-                        $(this).dialog('close');
-                    }
-                }
-            });
-            return;
+            throw 'This element can only reside inside canvas';
         }
 
         canvas.add('container');
@@ -41,13 +30,13 @@ define(['underscore', 'jquery', 'jaf/view', 'jquery-ui'],
                         // set the container as selected element of the canvas
                         //grid_container.selected(true);
                         // add a div to the selected element of the canvas
-                        if(canvas.selected().type === "div") {
-                            canvas.selected().container.selected(true);
+                        if(canvas.curr().type === "div") {
+                            canvas.curr().parent().selected(true);
                         }
                         canvas.add('div', column);
                     });
 
-                    canvas.selected().container.selected(true);
+                    canvas.curr().parent().selected(true);
 
                     $(this).dialog('close');
                 },

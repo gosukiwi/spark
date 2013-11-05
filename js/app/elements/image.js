@@ -4,7 +4,7 @@
 define(['app/elements/element', 'jaf/view', 'jaf/globals'], function (element, view, globals) {
     "use strict";
 
-    return function (container, success) {
+    return function (element, container, success) {
         var image;
 
         image = element(container);

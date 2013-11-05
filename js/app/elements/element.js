@@ -6,9 +6,9 @@ define(['jaf/eventer', 'jaf/model', 'md5', 'app/lib/history', 'app/elements/elem
     // selected in the canvas, this is global to all elements
     var current_element,
     // the export function
-        element_gen;
+        element_generator;
     
-    element_gen = function (parent) {
+    element_generator = function (parent) {
         var listener = eventer.listener(),
             focused = false,
             widget,
@@ -51,7 +51,7 @@ define(['jaf/eventer', 'jaf/model', 'md5', 'app/lib/history', 'app/elements/elem
                 }
                 
                 // Add an element of the specified type to this element
-                factory(element_gen, current_element, type, function (elem) {
+                factory(element_generator, current_element, type, function (elem) {
                     // Attach an event to this child
                     // when selected save data and trigger this 'onSelected' event
                     elem.onSelected(function (curr) {
@@ -143,5 +143,5 @@ define(['jaf/eventer', 'jaf/model', 'md5', 'app/lib/history', 'app/elements/elem
         return widget;
     };
     
-    return element_gen;
+    return element_generator;
 });

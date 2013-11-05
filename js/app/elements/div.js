@@ -71,10 +71,10 @@ define(['underscore', 'jquery', 'jaf/view', 'jquery-ui'],
                 'columns': cols,
                 'offset': 0
             });
-
-            el.container.columnsConsumed += cols;
-            if(el.container.columnsConsumed > 12) {
-                el.container.columnsConsumed = cols;
+            
+            el.parent().columnsConsumed += cols;
+            if(el.parent().columnsConsumed > 12) {
+                el.parent().columnsConsumed = cols;
                 el.el().before('<div class="clear"></div>');
             }
         }

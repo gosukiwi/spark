@@ -1,10 +1,10 @@
 /*
  * An element representing an container
  */
-define(['app/elements/element', 'jaf/view'], function (element, view) {
+define(['jaf/view'], function (view) {
     "use strict";
 
-    return function (parent, success) {
+    return function (element, parent, success) {
         var container = element(parent);
 
         container.type = 'container';

@@ -13,11 +13,11 @@ define(['jaf/globals', 'app/elements/div', 'app/elements/image', 'app/elements/c
         } else if (type === 'container') {
             containerDiv(element_gen, parent, success);
         } else if (type === 'grid') {
-            grid(element_gen, parent, success);
+            grid(parent, success);
         } else if (type === 'text') {
             text(element_gen, parent, success);
         } else if (type === 'image') {
-            image(parent, success);
+            image(element_gen, parent, success);
         }
     };
 });
