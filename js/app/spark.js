@@ -51,7 +51,7 @@ define([
     // library presenter
     presenters.library
         .on('image-added image-removed', function () {
-            canvas.cssChanged(cssEditor.getValue());
+            canvas.css(presenters.css.val());
         })
         .init();
     
