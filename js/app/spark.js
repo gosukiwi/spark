@@ -131,7 +131,7 @@ define([
             $('div#elements i')
                 .click(function () {
                     var name = $(this).attr('id').split('-')[2];
-                    canvas.add(name);
+                    canvas.curr().add(name);
                 })
                 .tooltip();
 
