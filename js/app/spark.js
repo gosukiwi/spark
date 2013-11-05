@@ -1,26 +1,27 @@
 /*
  * Front presenter
- * Work on the main UI and call other presenters
+ * A front presenter instantiates all other presenters and
+ * binds them together listening to their events
  */
 
 define([
         'underscore', 
         'jquery', 
-        'jaf/view', 
-        'app/presenters/library', 
+        'app/presenters/spark-ui/library', 
+        'app/presenters/spark-ui/html-properties', 
         'app/elements/canvas', 
         'app/lib/history', 
         'jquery-ui', 
         'codemirror'
-    ], function (_, $, view, presenter_library, canvasElement, history) {
+    ], function (_, $, presenter_library, presenter_properties, canvasElement, history) {
     "use strict";
 
-    var propsContainer = $('#properties-container'),
-        canvas,
-        cssEditor,
-        presenters = {
-            library: presenter_library
-        };
+    var canvas,
+    cssEditor,
+    presenters = {
+        'library': presenter_library,
+        'properties': presenter_properties
+    };
 
     // Create a canvas and save it
     canvasElement(null, function (elem) {
@@ -42,7 +43,7 @@ define([
         var output = [root.type];
         
         if(root.children()) {
-            _.each(root.children(), function (child, memo) {
+            _.each(root.children(), function (child) {
                 output.push(getTree(child));
             });
         }
@@ -53,79 +54,22 @@ define([
     function save() {
         console.log(getTree(canvas));
     }
+    
+    // Presenters
 
-    function onSaveElementProperties() {
-        var props = {};
-
-        // Get all settings
-        propsContainer.find('input[type=text]').each(function (i, el) {
-            props[$(el).attr('id').split('-')[1]] = $(el).val();
-        });
-
-        // Update element
-        canvas.curr().html(props);
-    }
-
-    function onDeleteElement() {
-        if(canvas.curr().type === 'canvas') {
-            throw 'Cannot delete the canvas';
-        }
-        
-        // Remove selected element from canvas
-        canvas.curr().remove();
-    }
-
-    /*
-     * Draws the given object onto a menu container as a
-     * list of key-values
-     */
-    function drawHtmlMenu(element) {
-        var container = propsContainer,
-            formatted_properties = [],
-            props = element.properties.props(),
-            html;
-
-        _.each(_.keys(props), function (key) {
-            formatted_properties.push({ name: key, value: props[key] });
-        });
-
-        html = view('spark-ui/element-properties.mustache', {
-            'type': element.type,
-            'parent': element.container ? element.container.type : 'No parent',
-            'properties': formatted_properties
-        });
-
-        container.empty();
-        container.append(html);
-
-        /* HTML Bindings */
-        document.getElementById('btn-delete').onclick = onDeleteElement;
-        document.getElementById('btn-save-changes').onclick =
-            onSaveElementProperties;
-
-        $('#btn-parent').tooltip();
-
-        $('div.prop-item').click(function () {
-            $(this).find('input').focus();
-        });
-
-        $('#btn-parent').click(function () {
-            if (element.parent() !== null) {
-                element.parent().selected(true);
-            } 
-        });
-    }
-
-    // When something is selected, draw that element
-    // html and css props
+    // library
+    presenters.library
+        .on('image-added image-removed', function () {
+            canvas.cssChanged(cssEditor.getValue());
+        })
+        .init();
+    
+    // html properties
     canvas.onSelected(function (elem) {
-        drawHtmlMenu(elem);
+        presenters.properties.draw(elem);
     });
-
-    // Draw the initial state of the menu, as nothing
-    // is selected yet, just draw the canvas
-    drawHtmlMenu(canvas);
-
+    presenters.properties.init(canvas);
+    
     return {
         // Binding and jquery ui initialization
         init: function () {
@@ -173,12 +117,7 @@ define([
                 save();
             });
             
-            // Library
-            presenters.library
-                .on('image-added image-removed', function () {
-                    canvas.cssChanged(cssEditor.getValue());
-                })
-                .init();
+            
         }
     };
 });
