@@ -10,10 +10,9 @@ define([
         'app/presenters/library', 
         'app/elements/canvas', 
         'app/lib/history', 
-        'jaf/globals',
         'jquery-ui', 
         'codemirror'
-    ], function (_, $, view, presenter_library, canvasElement, history, globals) {
+    ], function (_, $, view, presenter_library, canvasElement, history) {
     "use strict";
 
     var propsContainer = $('#properties-container'),
@@ -28,8 +27,6 @@ define([
         canvas = elem;
         canvas.properties.set('id', 'page-body');
         canvas.selected(true);
-        
-        globals.current_element = canvas;
     });
 
     // Bind ace editor

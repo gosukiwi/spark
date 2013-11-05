@@ -1,8 +1,14 @@
-define(['jaf/eventer', 'jaf/model', 'md5', 'app/lib/history', 'app/elements/elementFactory', 'jaf/globals'], 
-        function (eventer, model, md5, history, factory, globals) {
+define(['jaf/eventer', 'jaf/model', 'md5', 'app/lib/history', 'app/elements/elementFactory'], 
+        function (eventer, model, md5, history, factory) {
     "use strict";
     
-    var element_gen = function (parent) {
+    // holds an instance of a selected element, as only one can be
+    // selected in the canvas, this is global to all elements
+    var current_element,
+    // the export function
+        element_gen;
+    
+    element_gen = function (parent) {
         var listener = eventer.listener(),
             focused = false,
             widget,
@@ -40,17 +46,17 @@ define(['jaf/eventer', 'jaf/model', 'md5', 'app/lib/history', 'app/elements/elem
             },
             
             'add': function (type, params_obj) {
-                if(!globals.current_element.isContainer) {
+                if(!current_element.isContainer) {
                     throw "Cannot add element to a non container";
                 }
                 
                 // Add an element of the specified type to this element
-                factory(element_gen, widget, type, function (elem) {
+                factory(element_gen, current_element, type, function (elem) {
                     // Attach an event to this child
                     // when selected save data and trigger this 'onSelected' event
                     elem.onSelected(function (curr) {
-                        last_selected_child = curr;
                         listener.trigger('onSelected', curr);
+                        current_element = curr;
                     });
                     
                     children.push(elem);
@@ -72,15 +78,16 @@ define(['jaf/eventer', 'jaf/model', 'md5', 'app/lib/history', 'app/elements/elem
                 focused = val;
 
                 if (val === true) {
+                    // Deselect current
+                    current_element.selected(false);
+                    // Add active class to this element, as it's now selected
                     widget.el().addClass('active');
+                    // Trigger the callbacks
                     listener.trigger('onSelected', widget);
-                    // If a selection exists, deselect
-                    if(globals.current_element) {
-                        globals.current_element.selected(false);
-                    }
                     // And save this selection as current one
-                    globals.current_element = widget;
+                    current_element = widget;
                 } else {
+                    // If set to false, just remove the active class if exists
                     widget.el().removeClass('active');
                 }
 
@@ -106,7 +113,7 @@ define(['jaf/eventer', 'jaf/model', 'md5', 'app/lib/history', 'app/elements/elem
             * returns it, if not, return last selected child's curr().
             */
             'curr': function () {
-                globals.current_element;
+                return current_element;
             },
 
             'remove': function () {
@@ -127,6 +134,11 @@ define(['jaf/eventer', 'jaf/model', 'md5', 'app/lib/history', 'app/elements/elem
                 widget.properties.set(key, val);
             });
         });
+        
+        // current_element will start as the canvas
+        if(current_element === undefined) {
+            current_element = widget;
+        }
 
         return widget;
     };

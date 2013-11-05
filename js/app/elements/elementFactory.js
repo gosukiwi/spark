@@ -7,19 +7,17 @@ define(['jaf/globals', 'app/elements/div', 'app/elements/image', 'app/elements/c
     "use strict";
 
     // Turns a jQuery DOM element into a spark element
-    return function (element_gen, canvas, type, success, meta) {
-        var container = globals.current_element;
-        
+    return function (element_gen, parent, type, success, meta) {
         if (type === 'div') {
-            div(element_gen, canvas, container, success, meta);
+            div(element_gen, parent, success, meta);
         } else if (type === 'container') {
-            containerDiv(element_gen, container, success);
+            containerDiv(element_gen, parent, success);
         } else if (type === 'grid') {
-            grid(element_gen, container, success);
+            grid(element_gen, parent, success);
         } else if (type === 'text') {
-            text(element_gen, container, success);
+            text(element_gen, parent, success);
         } else if (type === 'image') {
-            image(container, success);
+            image(parent, success);
         }
     };
 });

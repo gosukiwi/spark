@@ -5,8 +5,8 @@ define(['underscore', 'jquery', 'jaf/view', 'jquery-ui'],
         function (_, $, view) {
     "use strict";
     
-    function create (element, container) {
-        var div = element(container);
+    function create (element, parent) {
+        var div = element(parent);
 
         div.type = 'div';
         div.el(view('elements/div.mustache'));
@@ -44,7 +44,7 @@ define(['underscore', 'jquery', 'jaf/view', 'jquery-ui'],
         return div;
     }
 
-    return function (element, canvas, container, success, cols) {
+    return function (element, container, success, cols) {
         var form,
             el;
 
@@ -82,6 +82,7 @@ define(['underscore', 'jquery', 'jaf/view', 'jquery-ui'],
 
         success(el);
 
+        el.selected(true);
         // add a para
         el.add('text');
         // select it again
