@@ -67,8 +67,12 @@ define([
     }
 
     function onDeleteElement() {
+        if(canvas.curr().type === 'canvas') {
+            throw 'Cannot delete the canvas';
+        }
+        
         // Remove selected element from canvas
-        canvas.remove();
+        canvas.curr().remove();
     }
 
     /*

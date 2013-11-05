@@ -119,13 +119,21 @@ define(['jaf/eventer', 'jaf/model', 'md5', 'app/lib/history', 'app/elements/elem
                 return current_element;
             },
 
+            /*
+            * Removes this element from the canvas
+            */
             'remove': function () {
-                widget.parent().removeChild(widget);
-                widget.selected(false);
+                widget.parent()
+                    .selected(true)
+                    .unlinkChild(widget);
                 widget.el().remove();
             },
             
-            'removeChild': function (el) {
+            /*
+            * Used automatically inside remove, it's used to
+            * unlink the parent-child reference
+            */
+            'unlinkChild': function (el) {
                 children = _.without(children, el);
             }
         };

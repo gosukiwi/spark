@@ -31,21 +31,6 @@ define([
             return elements;
         };
 
-        canvas.remove = function (elem) {
-            elem = elem || canvas.curr();
-            if (elem) {
-                if(elem.type === 'canvas') {
-                    throw "You cannot delete the canvas!";
-                }
-                
-                elem.parent().selected(true);
-
-                // Remove the element from the container
-                elem.remove();
-                elem.parent().removeChild(elem);
-            }
-        };
-
         /*
         * Sets the CSS of the canvas.
         * TODO: Move to spark.js?
