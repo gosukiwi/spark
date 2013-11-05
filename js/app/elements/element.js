@@ -120,8 +120,13 @@ define(['jaf/eventer', 'jaf/model', 'md5', 'app/lib/history', 'app/elements/elem
             },
 
             'remove': function () {
+                widget.parent().removeChild(widget);
                 widget.selected(false);
                 widget.el().remove();
+            },
+            
+            'removeChild': function (el) {
+                children = _.without(children, el);
             }
         };
 

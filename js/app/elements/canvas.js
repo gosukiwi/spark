@@ -34,7 +34,7 @@ define([
         canvas.remove = function (elem) {
             elem = elem || canvas.curr();
             if (elem) {
-                if(elem.parent().type === 'canvas') {
+                if(elem.type === 'canvas') {
                     throw "You cannot delete the canvas!";
                 }
                 
@@ -42,7 +42,7 @@ define([
 
                 // Remove the element from the container
                 elem.remove();
-                children = _.without(children, elem);
+                elem.parent().removeChild(elem);
             }
         };
 
