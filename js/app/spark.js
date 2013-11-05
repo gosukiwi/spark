@@ -38,8 +38,22 @@ define([
         'value': "/* Your custom CSS goes here */\n"
     });
     
+    function getTree(root) {
+        if(!root.children()) {
+            return [root.type];
+        }
+        
+        console.log(root.children());
+        
+        return _.reduce(root.children(), function (child, memo) {
+            console.log(child);
+            memo.push(getTree(child));
+        }, [root.type]);
+        
+    }
+    
     function save() {
-        console.log('save');
+        console.log(getTree(canvas));
     }
 
     function onSaveElementProperties() {

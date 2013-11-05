@@ -82,7 +82,6 @@ define(['underscore', 'jquery', 'jaf/view', 'jquery-ui'],
 
         success(el);
 
-        el.selected(true);
         // add a para
         el.add('text');
         // select it again

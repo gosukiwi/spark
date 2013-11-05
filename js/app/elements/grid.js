@@ -12,8 +12,6 @@ define(['underscore', 'jquery', 'jaf/view'],
             throw 'This element can only reside inside canvas';
         }
 
-        canvas.add('container');
-
         form = view('forms/form-grid-create.mustache');
         form.dialog({
             modal: true,
@@ -21,23 +19,21 @@ define(['underscore', 'jquery', 'jaf/view'],
             buttons: {
                 'Ok': function () {
                     var cols = $(this).find('#grid-input').val();
-                    _.each(cols.split(' '), function (n) {
-                        var column = parseInt(n, 10);
-                        if(_.isNaN(columns)) {
-                            alert('Invalid column definition!');
-                        }
-
-                        // set the container as selected element of the canvas
-                        //grid_container.selected(true);
-                        // add a div to the selected element of the canvas
-                        if(canvas.curr().type === "div") {
-                            canvas.curr().parent().selected(true);
-                        }
-                        canvas.add('div', column);
+                    
+                    canvas.add('container', function (container) {
+                        console.log(container);
+                        _.each(cols.split(' '), function (n) {
+                            var column = parseInt(n, 10);
+                            if(_.isNaN(columns)) {
+                                throw 'Invalid column definition, must be spaced numbers.';
+                            }
+                            
+                            container.add('div', column);
+                        });
+                        
+                        container.selected(true);
                     });
-
-                    canvas.curr().parent().selected(true);
-
+                    
                     $(this).dialog('close');
                 },
 

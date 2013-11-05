@@ -45,13 +45,16 @@ define(['jaf/eventer', 'jaf/model', 'md5', 'app/lib/history', 'app/elements/elem
                 return el;
             },
             
+            /*
+            * Adds an element to this one
+            */
             'add': function (type, params_obj) {
-                if(!current_element.isContainer) {
+                if(!widget.isContainer) {
                     throw "Cannot add element to a non container";
                 }
                 
                 // Add an element of the specified type to this element
-                factory(element_generator, current_element, type, function (elem) {
+                factory(element_generator, widget, type, function (elem) {
                     // Attach an event to this child
                     // when selected save data and trigger this 'onSelected' event
                     elem.onSelected(function (curr) {
