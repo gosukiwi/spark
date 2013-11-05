@@ -18,21 +18,23 @@ define(['underscore', 'jquery', 'jaf/view'],
             width: 400,
             buttons: {
                 'Ok': function () {
-                    var cols = $(this).find('#grid-input').val();
-                    
-                    canvas.add('container', function (container) {
-                        console.log(container);
-                        _.each(cols.split(' '), function (n) {
-                            var column = parseInt(n, 10);
-                            if(_.isNaN(columns)) {
-                                throw 'Invalid column definition, must be spaced numbers.';
-                            }
-                            
-                            container.add('div', column);
-                        });
+                    var cols = $(this).find('#grid-input').val(),
+                        container;
                         
-                        container.selected(true);
+                    canvas.add('container');
+                    container = canvas.curr();
+                    
+                    _.each(cols.split(' '), function (n) {
+                        var column = parseInt(n, 10);
+                        
+                        if(_.isNaN(column)) {
+                            throw 'Invalid column definition, must be spaced numbers.';
+                        }
+                        
+                        container.add('div', column);
                     });
+                        
+                    container.selected(true);
                     
                     $(this).dialog('close');
                 },
