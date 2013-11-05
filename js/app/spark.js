@@ -9,18 +9,19 @@ define([
         'jquery', 
         'app/presenters/spark-ui/library', 
         'app/presenters/spark-ui/html-properties', 
+        'app/presenters/spark-ui/css-editor', 
         'app/elements/canvas', 
         'app/lib/history', 
         'jquery-ui', 
         'codemirror'
-    ], function (_, $, presenter_library, presenter_properties, canvasElement, history) {
+    ], function (_, $, presenter_library, presenter_properties, presenter_css, canvasElement, history) {
     "use strict";
 
     var canvas,
-    cssEditor,
     presenters = {
         'library': presenter_library,
-        'properties': presenter_properties
+        'properties': presenter_properties,
+        'css': presenter_css
     };
 
     // Create a canvas and save it
@@ -30,15 +31,6 @@ define([
         canvas.selected(true);
     });
 
-    // Bind ace editor
-    cssEditor = CodeMirror.fromTextArea(document.getElementById('css-textarea'), {
-        'mode': 'text/css',
-        'lineNumbers': true,
-        'theme': 'monokai',
-        'lineWrapping': true,
-        'value': "/* Your custom CSS goes here */\n"
-    });
-    
     function getTree(root) {
         var output = [root.type];
         
@@ -69,6 +61,12 @@ define([
         presenters.properties.draw(elem);
     });
     presenters.properties.init(canvas);
+    
+    presenters.css
+        .on('change', function (css) {
+            canvas.css(css);
+        })
+        .init();
     
     return {
         // Binding and jquery ui initialization
@@ -103,10 +101,7 @@ define([
             $('.menu-box li:first-child').trigger('click');
 
             // Listen when updating CSS
-            cssEditor.on('change', function () {
-                canvas.css(cssEditor.getValue());
-            });
-
+            
             // Undo button
             $('#btn-undo').click(function () {
                 history.undo();
