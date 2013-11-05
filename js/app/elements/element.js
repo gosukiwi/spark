@@ -1,3 +1,18 @@
+/*
+* Represents a HTML element inside the spark app.
+* A canvas element is the root, and contains all other elements.
+* Canvas is created manually once, all other elements are created
+* by handling events in the UI.
+*
+* @Author Federico Ramírez
+*
+* Most common methods are 
+*   el() - the jQuery DOM object
+*   curr() - gets the current selected element (any element not just children of this one)
+*   children() - array of children elements
+*   parent() - the parent element
+*   add() - adds an element inside this one
+*/
 define(['jaf/eventer', 'jaf/model', 'md5', 'app/lib/history', 'app/elements/elementFactory'], 
         function (eventer, model, md5, history, factory) {
     "use strict";
@@ -5,33 +20,41 @@ define(['jaf/eventer', 'jaf/model', 'md5', 'app/lib/history', 'app/elements/elem
     // holds an instance of a selected element, as only one can be
     // selected in the canvas, this is global to all elements
     var current_element,
-    // the export function
+    // the export function, I'll use a function which returns instances
+    // as using 'new' is not my cup of tea
         element_generator;
     
     element_generator = function (parent) {
+            // an instance of jaf's eventer
         var listener = eventer.listener(),
+            // used for holding whether this element is selected
             focused = false,
-            widget,
+            // an array of elements, children of this one
             children = [],
-            last_selected_child,
-            el;
+            // a reference to the jQuery DOM element which this element represents
+            el,
+            // this object will be returned when the function is executed
+            widget;
+            
             
         widget = {
-            // Attributes
+            // attributes
             'isContainer': false,
             'isResizable': false,
             'properties': model({}),
             'parent': function () {
                 return parent;
             },
+            
+            // methods
             'children': function () {
                 return children;
             },
+            
             'root': function () {
                 return parent === null ? widget : widget.parent();
             },
 
-            // Methods
             'el': function (jqueryHtmlElem) {
                 if(jqueryHtmlElem !== undefined) {
                     el = jqueryHtmlElem;
@@ -46,7 +69,7 @@ define(['jaf/eventer', 'jaf/model', 'md5', 'app/lib/history', 'app/elements/elem
             },
             
             /*
-            * Adds an element to this one
+            * Adds a child element to this one
             */
             'add': function (type, params_obj) {
                 if(!widget.isContainer) {
@@ -68,12 +91,18 @@ define(['jaf/eventer', 'jaf/model', 'md5', 'app/lib/history', 'app/elements/elem
                 }, params_obj);
             },
             
+            /*
+            * Triggers a callback when the element is selected
+            */
             'onSelected': function (cb) {
                 listener.listen('onSelected', cb);
                 return widget;
             },
 
-            'selected': function (val, except) {
+            /*
+            * Sets or gets whether thsi element is selected
+            */
+            'selected': function (val) {
                 if(val === undefined) {
                     return focused;
                 }
@@ -138,13 +167,17 @@ define(['jaf/eventer', 'jaf/model', 'md5', 'app/lib/history', 'app/elements/elem
             }
         };
 
+        // before returning, let's add a unique id
         widget.properties.set('id', 
             md5(new Date().getUTCMilliseconds()).substr(0, 6));
 
+        // also, listen for properties changes
         widget.properties.onChanged(function (key, val) {
             widget.el().attr(key, val);
         });
 
+        // and before a property changes, add it to history
+        // used for undo implementation
         widget.properties.onChanging(function (key, val) {
             history.add(function () {
                 widget.properties.set(key, val);
@@ -159,5 +192,6 @@ define(['jaf/eventer', 'jaf/model', 'md5', 'app/lib/history', 'app/elements/elem
         return widget;
     };
     
+    // return generator function, calling this function generates instances of elements
     return element_generator;
 });
