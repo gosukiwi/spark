@@ -39,17 +39,15 @@ define([
     });
     
     function getTree(root) {
-        if(!root.children()) {
-            return [root.type];
+        var output = [root.type];
+        
+        if(root.children()) {
+            _.each(root.children(), function (child, memo) {
+                output.push(getTree(child));
+            });
         }
         
-        console.log(root.children());
-        
-        return _.reduce(root.children(), function (child, memo) {
-            console.log(child);
-            memo.push(getTree(child));
-        }, [root.type]);
-        
+        return output;
     }
     
     function save() {
