@@ -1,10 +1,10 @@
 /*
  * An element representing an text
  */
-define(['app/elements/element', 'jaf/view'], function (element, view) {
+define(['jaf/view'], function (view) {
     "use strict";
 
-    return function (container, success) {
+    return function (element, container, success) {
         var text;
 
         text = element(container);
@@ -30,5 +30,5 @@ define(['app/elements/element', 'jaf/view'], function (element, view) {
 
         // Call success if exists
         _.isFunction(success) && success(text);
-    }
+    };
 });

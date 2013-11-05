@@ -1,19 +1,29 @@
-define(['jaf/eventer', 'jaf/model', 'md5', 'app/lib/history'], 
-        function (eventer, model, md5, history) {
+define(['jaf/eventer', 'jaf/model', 'md5', 'app/lib/history', 'app/elements/elementFactory', 'jaf/globals'], 
+        function (eventer, model, md5, history, factory, globals) {
     "use strict";
-
-    return function (container) {
+    
+    var element_gen = function (parent) {
         var listener = eventer.listener(),
             focused = false,
             widget,
+            children = [],
+            last_selected_child,
             el;
-
+            
         widget = {
             // Attributes
             'isContainer': false,
             'isResizable': false,
             'properties': model({}),
-            'container': container,
+            'parent': function () {
+                return parent;
+            },
+            'children': function () {
+                return children;
+            },
+            'root': function () {
+                return parent === null ? widget : widget.parent();
+            },
 
             // Methods
             'el': function (jqueryHtmlElem) {
@@ -28,18 +38,33 @@ define(['jaf/eventer', 'jaf/model', 'md5', 'app/lib/history'],
 
                 return el;
             },
-
+            
+            'add': function (type, params_obj) {
+                if(!globals.current_element.isContainer) {
+                    throw "Cannot add element to a non container";
+                }
+                
+                // Add an element of the specified type to this element
+                factory(element_gen, widget, type, function (elem) {
+                    // Attach an event to this child
+                    // when selected save data and trigger this 'onSelected' event
+                    elem.onSelected(function (curr) {
+                        last_selected_child = curr;
+                        listener.trigger('onSelected', curr);
+                    });
+                    
+                    children.push(elem);
+                    elem.parent().el().append(elem.el());
+                    elem.selected(true);
+                }, params_obj);
+            },
+            
             'onSelected': function (cb) {
                 listener.listen('onSelected', cb);
                 return widget;
             },
 
-            'onDeselected': function (cb) {
-                listener.listen('onDeselected', cb);
-                return widget;
-            },
-
-            'selected': function (val) {
+            'selected': function (val, except) {
                 if(val === undefined) {
                     return focused;
                 }
@@ -48,17 +73,25 @@ define(['jaf/eventer', 'jaf/model', 'md5', 'app/lib/history'],
 
                 if (val === true) {
                     widget.el().addClass('active');
-                    listener.trigger('onSelected', el);
+                    listener.trigger('onSelected', widget);
+                    // If a selection exists, deselect
+                    if(globals.current_element) {
+                        globals.current_element.selected(false);
+                    }
+                    // And save this selection as current one
+                    globals.current_element = widget;
                 } else {
                     widget.el().removeClass('active');
-                    listener.trigger('onDeselected', el);
                 }
 
                 // For chanability
                 return widget;
             },
 
-            'applyHTML': function (props) {
+            /*
+            * Given a hash, apply it as html properties on this element
+            */
+            'html': function (props) {
                 var key;
             
                 for (key in props) {
@@ -67,9 +100,13 @@ define(['jaf/eventer', 'jaf/model', 'md5', 'app/lib/history'],
                     }
                 }
             },
-
-            'append': function (elem) {
-                widget.el().append(elem.el());
+            
+            /* 
+            * Gets the currently selected element, if this element is selected
+            * returns it, if not, return last selected child's curr().
+            */
+            'curr': function () {
+                globals.current_element;
             },
 
             'remove': function () {
@@ -93,4 +130,6 @@ define(['jaf/eventer', 'jaf/model', 'md5', 'app/lib/history'],
 
         return widget;
     };
+    
+    return element_gen;
 });

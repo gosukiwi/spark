@@ -1,11 +1,11 @@
 /*
  * An element representing a div layer
  */
-define(['underscore', 'jquery', 'app/elements/element', 'jaf/view', 'jquery-ui'], 
-        function (_, $, element, view) {
+define(['underscore', 'jquery', 'jaf/view', 'jquery-ui'], 
+        function (_, $, view) {
     "use strict";
-
-    function create (container) {
+    
+    function create (element, container) {
         var div = element(container);
 
         div.type = 'div';
@@ -44,7 +44,7 @@ define(['underscore', 'jquery', 'app/elements/element', 'jaf/view', 'jquery-ui']
         return div;
     }
 
-    return function (canvas, container, success, cols) {
+    return function (element, canvas, container, success, cols) {
         var form,
             el;
 
@@ -63,7 +63,7 @@ define(['underscore', 'jquery', 'app/elements/element', 'jaf/view', 'jquery-ui']
             return;
         }
 
-        el = create(container);
+        el = create(element, container);
 
         // If we already have the column number
         if(_.isNumber(cols)) {
@@ -82,10 +82,8 @@ define(['underscore', 'jquery', 'app/elements/element', 'jaf/view', 'jquery-ui']
 
         success(el);
 
-        // make sure the element is selected
-        el.selected(true);
         // add a para
-        canvas.add('text');
+        el.add('text');
         // select it again
         el.selected(true);
 

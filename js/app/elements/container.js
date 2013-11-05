@@ -4,8 +4,8 @@
 define(['app/elements/element', 'jaf/view'], function (element, view) {
     "use strict";
 
-    return function (container, success) {
-        var container = element(container);
+    return function (parent, success) {
+        var container = element(parent);
 
         container.type = 'container';
         container.el(view('elements/container.mustache'));

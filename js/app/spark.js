@@ -10,9 +10,10 @@ define([
         'app/presenters/library', 
         'app/elements/canvas', 
         'app/lib/history', 
+        'jaf/globals',
         'jquery-ui', 
         'codemirror'
-    ], function (_, $, view, presenter_library, canvasElement, history) {
+    ], function (_, $, view, presenter_library, canvasElement, history, globals) {
     "use strict";
 
     var propsContainer = $('#properties-container'),
@@ -23,9 +24,12 @@ define([
         };
 
     // Create a canvas and save it
-    canvasElement(undefined, function (elem) {
+    canvasElement(null, function (elem) {
         canvas = elem;
         canvas.properties.set('id', 'page-body');
+        canvas.selected(true);
+        
+        globals.current_element = canvas;
     });
 
     // Bind ace editor
@@ -36,6 +40,10 @@ define([
         'lineWrapping': true,
         'value': "/* Your custom CSS goes here */\n"
     });
+    
+    function save() {
+        console.log('save');
+    }
 
     function onSaveElementProperties() {
         var props = {};
@@ -46,7 +54,7 @@ define([
         });
 
         // Update element
-        canvas.htmlChanged(props);
+        canvas.curr().html(props);
     }
 
     function onDeleteElement() {
@@ -89,27 +97,15 @@ define([
         });
 
         $('#btn-parent').click(function () {
-            if (element.container !== undefined) {
-                if (element.container.type === 'canvas') {
-                    element.selected(false);
-                    element.container.selected(true);
-                    drawHtmlMenu(canvas);
-                } else {
-                    element.container.selected(true);
-                }
+            if (element.parent() !== null) {
+                element.parent().selected(true);
             } 
         });
     }
 
-    // When nothing is selected on the canvas, draw
-    // the canvas html and css props
-    canvas.onNothingSelected(function () {
-        drawHtmlMenu(canvas);
-    });
-
     // When something is selected, draw that element
     // html and css props
-    canvas.onSelectionChanged(function (elem) {
+    canvas.onSelected(function (elem) {
         drawHtmlMenu(elem);
     });
 
@@ -151,14 +147,19 @@ define([
 
             // Listen when updating CSS
             cssEditor.on('change', function () {
-                canvas.cssChanged(cssEditor.getValue());
+                canvas.css(cssEditor.getValue());
             });
 
             // Undo button
             $('#btn-undo').click(function () {
                 history.undo();
             });
-
+            
+            // Save button
+            $('#btn-save').click(function () {
+                save();
+            });
+            
             // Library
             presenters.library
                 .on('image-added image-removed', function () {
