@@ -8,13 +8,8 @@ requirejs.config({
     //the paths config could be for a directory.
     paths: {
         app: '../app',
-        jaf: '../jaf'
-    },
-    
-    shim: {
-        underscore: {
-            exports: '_'
-        }
+        jaf: '../jaf',
+        underscore: '../vendor/lodash'
     }
 });
 
