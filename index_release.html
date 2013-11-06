@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Sparks</title>
+        <link href='http://fonts.googleapis.com/css?family=Noto+Sans:400,700' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="css/reset.css" />
+        <link rel="stylesheet" href="css/font-awesome.min.css" />
+        <link rel="stylesheet" href="css/screen.css" />
+        <link rel="stylesheet" href="css/ui-vader/jquery-ui-1.10.3.custom.min.css" />
+        <link rel="stylesheet" href="css/codemirror.css" />
+        <link rel="stylesheet" href="css/monokai.css" />
+    </head>
+    <body>
+
+        <!-- Preloader -->
+        <div id="preloader">
+            <p>
+                Spark is loading <3
+            </p>
+        </div>
+        <!-- End of preloader -->
+
+        <div id="canvas-container">
+            <div id="columns"></div>
+            <iframe name="canvas" src="canvas.html" id="canvas">
+                
+            </iframe>
+        </div>
+
+        <div id="menu">
+            <div id="elements">
+                <i id="btn-add-grid" title="Grid" class="fa fa-columns"></i>
+                <i id="btn-add-div" title="Div" class="fa fa-square"></i>
+                <i id="btn-add-image" title="Image" class="fa fa-picture-o"></i>
+                <i id="btn-add-text" title="Text" class="fa fa-font"></i>
+            </div>
+
+            <div class="menu-box">
+                <ul>
+                    <li id="properties" class="active">Properties</li>
+                    <li id="css">CSS</li>
+                </ul>
+
+                <div class="prop-container" tab-id="properties">
+                    <div class="properties" id="properties-container">
+                    </div>
+                </div>
+
+                <div class="prop-container" tab-id="css">
+                    <div class="properties" id="css-container">
+                        <textarea id="css-textarea"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-box">
+                <button id="btn-save">Save</button>
+                <button id="btn-undo">Undo</button>
+            </div>
+
+
+            <div id="menu-library" class="menu-box">
+                <ul>
+                    <li id="library" class="active">Library</li>
+                    <li id="external-css">External CSS</li>
+                </ul>
+
+                <div class="prop-container" tab-id="library">
+                    <div id="library-items-container"></div>
+                    <p id="btn-add-file" class="button">Add files</p>
+                    <input type="file" accept="image/*" id="library-file-select" multiple="multiple"/>
+                </div>
+
+                <div class="prop-container" tab-id="external-css">
+                    SOmething something datrk side
+                </div>
+            </div>
+        </div>
+
+        <div class="clear"></div>
+
+        <div id="status">
+            <p>Up and running!</p>
+        </div>
+
+
+        <script type="text/javascript" data-main="js/app-built.js" src="js/vendor/require.js"></script>
+    </body>
+</html>
