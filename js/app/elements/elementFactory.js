@@ -7,9 +7,11 @@ define(['app/elements/div', 'app/elements/image', 'app/elements/container', 'app
     "use strict";
 
     // Turns a jQuery DOM element into a spark element
-    return function (base_element, type, success, meta) {
+    return function (base_element, success, params) {
+        var type = params.type;
+        
         if (type === 'div') {
-            div(base_element, success, meta);
+            div(base_element, success, params);
         } else if (type === 'container') {
             container(base_element, success);
         } else if (type === 'grid') {
@@ -18,6 +20,8 @@ define(['app/elements/div', 'app/elements/image', 'app/elements/container', 'app
             text(base_element, success);
         } else if (type === 'image') {
             image(base_element, success);
+        } else {
+            throw 'Invalid type: ' + type;
         }
     };
 });

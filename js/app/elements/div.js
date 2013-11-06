@@ -42,8 +42,9 @@ define(['underscore', 'jquery', 'jaf/view', 'jquery-ui'],
         return div;
     }
 
-    return function (element, success, cols) {
+    return function (element, success, params) {
         var form,
+            cols = params.cols,
             el;
 
         el = extend(element);

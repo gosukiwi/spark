@@ -34,7 +34,7 @@ define(['underscore', 'jquery', 'jaf/view', 'app/elements/container'],
                             throw 'Invalid column definition, must be spaced numbers.';
                         }
                         
-                        container.add('div', column);
+                        container.add('div', { cols: column });
                     });
                         
                     container.selected(true);
@@ -47,5 +47,5 @@ define(['underscore', 'jquery', 'jaf/view', 'app/elements/container'],
                 }
             }
         });
-    }
+    };
 });
