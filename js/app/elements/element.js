@@ -52,7 +52,7 @@ define(['jaf/eventer', 'jaf/model', 'md5', 'app/lib/history', 'app/elements/elem
             },
             
             'root': function () {
-                return parent === null ? widget : widget.parent();
+                return parent === null ? widget : widget.parent().root();
             },
 
             'el': function (jqueryHtmlElem) {
@@ -76,8 +76,8 @@ define(['jaf/eventer', 'jaf/model', 'md5', 'app/lib/history', 'app/elements/elem
                     throw "Cannot add element to a non container";
                 }
                 
-                // Add an element of the specified type to this element
-                factory(element_generator, widget, type, function (elem) {
+                // Call factory with a new element
+                factory(element_generator(widget), type, function (elem) {
                     // Attach an event to this child
                     // when selected save data and trigger this 'onSelected' event
                     elem.onSelected(function (curr) {

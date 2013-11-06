@@ -4,11 +4,7 @@
 define(['app/elements/element', 'jaf/view', 'jaf/globals'], function (element, view, globals) {
     "use strict";
 
-    return function (element, container, success) {
-        var image;
-
-        image = element(container);
-
+    return function (image, success) {
         image.el(view('elements/image.mustache'));
         image.type = 'image';
         image.isContainer = false;
@@ -35,5 +31,5 @@ define(['app/elements/element', 'jaf/view', 'jaf/globals'], function (element, v
         });
 
         success(image);
-    }
+    };
 });

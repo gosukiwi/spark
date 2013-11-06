@@ -1,16 +1,23 @@
 /*
  * An element representing a div layer
  */
-define(['underscore', 'jquery', 'jaf/view'], 
-        function (_, $, view) {
+define(['underscore', 'jquery', 'jaf/view', 'app/elements/container'], 
+        function (_, $, view, container_generator) {
     "use strict";
 
-    return function (canvas, success) {
-        var form;
-
-        if(canvas.type !== 'canvas') {
+    return function (element, success) {
+        var form,
+            container;
+            
+        if(element.parent().type !== 'canvas') {
+            element.remove();
             throw 'This element can only reside inside canvas';
         }
+        
+        container_generator(element, function (elem) {
+            success(elem);
+            container = elem;
+        });
 
         form = view('forms/form-grid-create.mustache');
         form.dialog({
@@ -18,11 +25,7 @@ define(['underscore', 'jquery', 'jaf/view'],
             width: 400,
             buttons: {
                 'Ok': function () {
-                    var cols = $(this).find('#grid-input').val(),
-                        container;
-                        
-                    canvas.add('container');
-                    container = canvas.curr();
+                    var cols = $(this).find('#grid-input').val();
                     
                     _.each(cols.split(' '), function (n) {
                         var column = parseInt(n, 10);

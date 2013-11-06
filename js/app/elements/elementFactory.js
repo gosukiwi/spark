@@ -2,22 +2,22 @@
  * Create a new element based on the type
  */
 
-define(['jaf/globals', 'app/elements/div', 'app/elements/image', 'app/elements/container', 'app/elements/text', 'app/elements/grid'], 
-        function (globals, div, image, containerDiv, text, grid) {
+define(['app/elements/div', 'app/elements/image', 'app/elements/container', 'app/elements/text', 'app/elements/grid'], 
+        function (div, image, container, text, grid) {
     "use strict";
 
     // Turns a jQuery DOM element into a spark element
-    return function (element_gen, parent, type, success, meta) {
+    return function (base_element, type, success, meta) {
         if (type === 'div') {
-            div(element_gen, parent, success, meta);
+            div(base_element, success, meta);
         } else if (type === 'container') {
-            containerDiv(element_gen, parent, success);
+            container(base_element, success);
         } else if (type === 'grid') {
-            grid(parent, success);
+            grid(base_element, success);
         } else if (type === 'text') {
-            text(element_gen, parent, success);
+            text(base_element, success);
         } else if (type === 'image') {
-            image(element_gen, parent, success);
+            image(base_element, success);
         }
     };
 });

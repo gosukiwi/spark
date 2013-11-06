@@ -5,9 +5,7 @@ define(['underscore', 'jquery', 'jaf/view', 'jquery-ui'],
         function (_, $, view) {
     "use strict";
     
-    function create (element, parent) {
-        var div = element(parent);
-
+    function extend (div) {
         div.type = 'div';
         div.el(view('elements/div.mustache'));
         div.isContainer = true;
@@ -44,26 +42,11 @@ define(['underscore', 'jquery', 'jaf/view', 'jquery-ui'],
         return div;
     }
 
-    return function (element, container, success, cols) {
+    return function (element, success, cols) {
         var form,
             el;
 
-        if(!container.isContainer) {
-            view('alert.mustache', {
-                title: 'Oops!',
-                text: 'This element must be inside a container'
-            }).dialog({
-                modal: true,
-                buttons: {
-                    'Ok': function () {
-                        $(this).dialog('close');
-                    }
-                }
-            });
-            return;
-        }
-
-        el = create(element, container);
+        el = extend(element);
 
         // If we already have the column number
         if(_.isNumber(cols)) {
@@ -79,13 +62,11 @@ define(['underscore', 'jquery', 'jaf/view', 'jquery-ui'],
             }
         }
 
-
         success(el);
 
         // add a para
         el.add('text');
         // select it again
         el.selected(true);
-
-    }
+    };
 });

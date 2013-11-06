@@ -4,11 +4,7 @@
 define(['jaf/view'], function (view) {
     "use strict";
 
-    return function (element, container, success) {
-        var text;
-
-        text = element(container);
-
+    return function (text, success) {
         text.properties.onChanged(function (key, val) {
             // Text has a special propertie which is
             // CONTENT this property is used to fill
