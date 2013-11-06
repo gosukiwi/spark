@@ -12,6 +12,9 @@
 *   children() - array of children elements
 *   parent() - the parent element
 *   add() - adds an element inside this one
+*
+* Events:
+*  selected - Triggers when the element is selected
 */
 define(['jaf/eventer', 'jaf/model', 'md5', 'app/lib/history', 'app/elements/elementFactory'], 
         function (eventer, model, md5, history, factory) {

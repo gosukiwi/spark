@@ -6,6 +6,9 @@
  * listener.listen('myEvent');
  * listener.trigger('myEvent', arg1, arg2);
  *
+ * You can also listen to several events and share a callback
+ * 
+ * listener.listen('update delete', myCallback);
  */
 
 define(['underscore'], function (_) {
@@ -14,16 +17,13 @@ define(['underscore'], function (_) {
             var callbacks = {};
 
             return {
-                listen: function(name, cb) {
-                    if(callbacks[name] === undefined) {
-                        callbacks[name] = [];
-                    }
-
-                    callbacks[name].push(cb);
-                },
-
-                callbacks: function () {
-                    return _.clone(callbacks);
+                listen: function(names, cb) {
+                    _.each(names.split(' '), function (name) {
+                        if(callbacks[name] === undefined) {
+                            callbacks[name] = [];
+                        } 
+                        callbacks[name].push(cb);
+                    });
                 },
 
                 trigger: function(name) {
