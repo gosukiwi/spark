@@ -5,7 +5,7 @@ define(['jaf/view'], function (view) {
     "use strict";
 
     return function (text, success) {
-        text.properties.onChanged(function (key, val) {
+        text.properties.on('changed', function (key, val) {
             // Text has a special propertie which is
             // CONTENT this property is used to fill
             // the content of a paragraph element

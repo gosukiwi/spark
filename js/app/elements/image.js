@@ -15,7 +15,7 @@ define(['app/elements/element', 'jaf/view', 'jaf/globals'], function (element, v
             'src': 'http://placehold.it/100x100'
         });
 
-        image.properties.onChanged(function (attr, val) {
+        image.properties.on('changed', function (attr, val) {
             var match,
                 imgData;
 

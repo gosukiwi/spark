@@ -10,7 +10,7 @@ define(['underscore', 'jquery', 'jaf/view', 'jquery-ui'],
         div.el(view('elements/div.mustache'));
         div.isContainer = true;
 
-        div.properties.onChanged(function (key, val) {
+        div.properties.on('changed', function (key, val) {
             // Divs have special properties which are
             // COLUMNS and OFFSET, these properties
             // are used with a css grid system and

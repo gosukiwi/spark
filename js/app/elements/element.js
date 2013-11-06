@@ -182,13 +182,13 @@ define(['jaf/eventer', 'jaf/model', 'md5', 'app/lib/history', 'app/elements/elem
             md5(new Date().getUTCMilliseconds()).substr(0, 6));
 
         // also, listen for properties changes
-        widget.properties.onChanged(function (key, val) {
+        widget.properties.on('changed', function (key, val) {
             widget.el().attr(key, val);
         });
 
         // and before a property changes, add it to history
         // used for undo implementation
-        widget.properties.onChanging(function (key, val) {
+        widget.properties.on('changing', function (key, val) {
             history.add(function () {
                 widget.properties.set(key, val);
             });

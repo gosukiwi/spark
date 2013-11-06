@@ -1,5 +1,7 @@
 /*
- * Just a bunch of attributes with events
+ * An object with events
+ * Possible events are changed and changing
+ * Use .get and .set for attributes manipulation
  */
 
 define(['jaf/eventer'], function (eventer) {
@@ -22,36 +24,31 @@ define(['jaf/eventer'], function (eventer) {
             model;
 
         model = {
-            // Changed callback
-            onChanged: function (cb) {
-                listener.listen('changed', cb);
-            },
-
-            onChanging: function (cb) {
-                listener.listen('changing', cb);
+            // listen to events
+            on: function (name, cb) {
+                listener.listen(name, cb);
             },
             
-            // Return a copy of the object attributes
+            // return a copy of the object attributes
             props: function() {
                 return _.clone(obj);
             },
 
-            // Delete all attributes from the object
+            // delete all attributes from the object
             clear: function () {
                 obj = {};
             },
 
-            // Set a value
+            // set a value
             set: function(attr, val) {
                 if(_.isObject(attr)) {
                     return setMany(model, attr);
                 }
 
-                // If the object has a value, trigger
+                // if the object has a value, trigger
                 // the CHANGING event
                 if(obj[attr] && obj[attr] !== val) {
-                    listener.trigger('changing', 
-                            attr, obj[attr]);
+                    listener.trigger('changing', attr, obj[attr]);
                 }
 
                 obj[attr] = val;
@@ -60,7 +57,7 @@ define(['jaf/eventer'], function (eventer) {
                 listener.trigger('changed', attr, val);
             },
 
-            // Get the value
+            // get the value
             get: function(attr) {
                 return obj[attr];
             }
