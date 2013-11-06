@@ -4,10 +4,6 @@ define(['jquery', 'underscore', 'jaf/presenter', 'jaf/view'], function ($, _, pr
     var el = $('#properties-container');
         
     return presenter.extend({
-        init: function (elem) {
-            this.draw(elem);
-        },
-        
         draw: function (elem) {
             var formatted_properties = [],
                 props = elem.properties.props(),

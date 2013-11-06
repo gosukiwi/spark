@@ -42,7 +42,7 @@ define([
         };
 
         // Do
-        canvas.onSelected(function () {
+        canvas.on('selected', function () {
             // Find all focused elements and unfocus them
             canvas.el().removeClass('active');
         });

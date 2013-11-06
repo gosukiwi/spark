@@ -56,10 +56,11 @@ define([
         .init();
     
     // html properties presenter
-    canvas.onSelected(function (elem) {
+    canvas.on('selected', function (elem) {
         presenters.properties.draw(elem);
     });
-    presenters.properties.init(canvas);
+    // on start draw the canvas props
+    presenters.properties.draw(canvas);
     
     // css editor presenter
     presenters.css
@@ -79,11 +80,9 @@ define([
                 })
                 .tooltip();
 
-            // Create the menu boxes tabs
-            // First of all, hide all the divs
+            // Menu boxes
+            // first of all, hide all the divs
             $('.menu-box > div').hide();
-
-            $('.button-list i').tooltip();
 
             // When clicking a tab, change the active one
             $('.menu-box li').click(function () {
@@ -97,7 +96,7 @@ define([
                 $('div[tab-id=' + id + ']').show();
             });
 
-            // Finally simulate a click on all first tabs
+            // finally simulate a click on all first tabs
             $('.menu-box li:first-child').trigger('click');
 
             // Undo button

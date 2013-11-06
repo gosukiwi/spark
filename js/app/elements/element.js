@@ -84,8 +84,8 @@ define(['jaf/eventer', 'jaf/model', 'md5', 'app/lib/history', 'app/elements/elem
                 factory(element_generator(widget), function (elem) {
                     // bubble the onSelected event up to root
                     // also save the current selected element
-                    elem.onSelected(function (curr) {
-                        listener.trigger('onSelected', curr);
+                    elem.on('selected', function (curr) {
+                        listener.trigger('selected', curr);
                         current_element = curr;
                     });
                     
@@ -101,8 +101,8 @@ define(['jaf/eventer', 'jaf/model', 'md5', 'app/lib/history', 'app/elements/elem
             /*
             * Triggers a callback when the element is selected
             */
-            'onSelected': function (cb) {
-                listener.listen('onSelected', cb);
+            'on': function (name, cb) {
+                listener.listen(name, cb);
                 return widget;
             },
 
@@ -122,7 +122,7 @@ define(['jaf/eventer', 'jaf/model', 'md5', 'app/lib/history', 'app/elements/elem
                     // Add active class to this element, as it's now selected
                     widget.el().addClass('active');
                     // Trigger the callbacks
-                    listener.trigger('onSelected', widget);
+                    listener.trigger('selected', widget);
                     // And save this selection as current one
                     current_element = widget;
                 } else {
