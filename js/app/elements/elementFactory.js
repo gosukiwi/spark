@@ -6,7 +6,10 @@ define(['app/elements/div', 'app/elements/image', 'app/elements/container', 'app
         function (div, image, container, text, grid) {
     "use strict";
 
-    // Turns a jQuery DOM element into a spark element
+    // Given a base element, calls a function to extend
+    // it into the required type, specified in
+    // params.type. The success callback is called
+    // after the element is created
     return function (base_element, success, params) {
         var type = params.type;
         

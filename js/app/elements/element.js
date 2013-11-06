@@ -79,17 +79,21 @@ define(['jaf/eventer', 'jaf/model', 'md5', 'app/lib/history', 'app/elements/elem
                 params_obj = params_obj || {};
                 params_obj.type = type;
                 
-                // Call factory with a new element
+                // factory takes a vanilla element and customizes it into a type
+                // type is specified in params_obj.type
                 factory(element_generator(widget), function (elem) {
-                    // Attach an event to this child
-                    // when selected save data and trigger this 'onSelected' event
+                    // bubble the onSelected event up to root
+                    // also save the current selected element
                     elem.onSelected(function (curr) {
                         listener.trigger('onSelected', curr);
                         current_element = curr;
                     });
                     
+                    // add the new element to the children list of this one
                     children.push(elem);
+                    // also append the new element html to this html
                     elem.parent().el().append(elem.el());
+                    // and set as selected, this is useful so all new elements are born selected
                     elem.selected(true);
                 }, params_obj);
             },
