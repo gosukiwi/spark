@@ -12,9 +12,8 @@ define([
         'app/presenters/spark-ui/css-editor', 
         'app/presenters/spark-ui/top-menu', 
         'app/elements/canvas', 
-        'app/lib/history', 
         'jquery-ui'
-    ], function (_, $, presenter_library, presenter_properties, presenter_css, presenter_top_menu, canvasElement, history) {
+    ], function (_, $, presenter_library, presenter_properties, presenter_css, presenter_top_menu, canvasElement) {
     "use strict";
 
     var canvas,
@@ -32,22 +31,6 @@ define([
         canvas.selected(true);
     });
 
-    function getTree(root) {
-        var output = [root.type];
-        
-        if(root.children()) {
-            _.each(root.children(), function (child) {
-                output.push(getTree(child));
-            });
-        }
-        
-        return output;
-    }
-    
-    function save() {
-        console.log(getTree(canvas));
-    }
-    
     // Presenters
 
     // library presenter
@@ -72,7 +55,7 @@ define([
         .init();
         
     // top menu presenter
-    presenters.menu.init();
+    presenters.menu.init(canvas);
     
     return {
         // Binding and jquery ui initialization
@@ -103,16 +86,6 @@ define([
 
             // finally simulate a click on all first tabs
             $('.menu-box li:first-child').trigger('click');
-
-            // Undo button
-            $('#btn-undo').click(function () {
-                history.undo();
-            });
-            
-            // Save button
-            $('#btn-save').click(function () {
-                save();
-            });
         }
     };
 });

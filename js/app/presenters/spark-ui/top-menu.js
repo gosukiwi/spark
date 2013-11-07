@@ -1,14 +1,37 @@
-define(['jquery', 'underscore', 'jaf/presenter'], function ($, _, presenter) {
+define(['jquery', 'underscore', 'jaf/presenter', 'app/lib/history'], function ($, _, presenter, history) {
+    var canvas;
+    
     // menu enables the user to easily choose a command, uppon chosing one
     // execute it
     function execute(command) {
         if(command === 'save') {
-            console.log('SAVE!');
+            save();
+        } else if(command === 'undo') {
+            history.undo();
         }
     }
     
+    function save() {
+        function getTree(root) {
+            var output = [root.type];
+            
+            if(root.children()) {
+                _.each(root.children(), function (child) {
+                    output.push(getTree(child));
+                });
+            }
+            
+            return output;
+        }
+        
+        console.log(getTree(canvas));
+    }
+    
     return presenter.extend({
-        init: function () {
+        // the init function takes the canvas as parameter
+        // it's later used for saving
+        init: function (c) {
+            canvas = c;
             $('#top-menu > ul li').click(function (e) {
                 var id = $(this).attr('id');
                 

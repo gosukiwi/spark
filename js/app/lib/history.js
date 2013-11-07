@@ -23,8 +23,8 @@ define(function () {
         },
 
         'undo': function () {
-            if(history.length == 0) {
-                return;
+            if(history.length === 0) {
+                throw 'No history.';
             }
 
             // Get the latest undo action
