@@ -19,65 +19,93 @@
             </p>
         </div>
         <!-- End of preloader -->
-
-        <div id="canvas-container">
-            <div id="columns"></div>
-            <iframe name="canvas" src="canvas.html" id="canvas">
+        
+        <div id="top-menu">
+            <ul>
+                <li id="menu-file">File</li>
+                <li id="menu-edit">Edit</li>
+                <li id="menu-help">Help</li>
+            </ul>
+            
+            <div id="top-submenu">
+                <ul parent="menu-file">
+                    <li>New</li>
+                    <li>Save</li>
+                    <li>Load</li>
+                </ul>
                 
-            </iframe>
-        </div>
-
-        <div id="menu">
-            <div id="elements">
-                <i id="btn-add-grid" title="Grid" class="fa fa-columns"></i>
-                <i id="btn-add-div" title="Div" class="fa fa-square"></i>
-                <i id="btn-add-image" title="Image" class="fa fa-picture-o"></i>
-                <i id="btn-add-text" title="Text" class="fa fa-font"></i>
-            </div>
-
-            <div class="menu-box">
-                <ul>
-                    <li id="properties" class="active">Properties</li>
-                    <li id="css">CSS</li>
+                <ul parent="menu-edit">
+                    <li>Undo</li>
+                    <li>Redo</li>
                 </ul>
-
-                <div class="prop-container" tab-id="properties">
-                    <div class="properties" id="properties-container">
-                    </div>
-                </div>
-
-                <div class="prop-container" tab-id="css">
-                    <div class="properties" id="css-container">
-                        <textarea id="css-textarea"></textarea>
-                    </div>
-                </div>
-            </div>
-
-            <div class="menu-box">
-                <button id="btn-save">Save</button>
-                <button id="btn-undo">Undo</button>
-            </div>
-
-
-            <div id="menu-library" class="menu-box">
-                <ul>
-                    <li id="library" class="active">Library</li>
-                    <li id="external-css">External CSS</li>
+                
+                <ul parent="menu-help">
+                    <li>About</li>
+                    <li>Contact</li>
                 </ul>
-
-                <div class="prop-container" tab-id="library">
-                    <div id="library-items-container"></div>
-                    <p id="btn-add-file" class="button">Add files</p>
-                    <input type="file" accept="image/*" id="library-file-select" multiple="multiple"/>
-                </div>
-
-                <div class="prop-container" tab-id="external-css">
-                    SOmething something datrk side
-                </div>
             </div>
         </div>
+        
+        <div id="workspace">
+            <div id="canvas-container">
+                <iframe name="canvas" src="canvas.html" id="canvas">
+                    
+                </iframe>
+            </div>
+    
+            <div id="menu">
+                <div id="elements">
+                    <i id="btn-add-grid" title="Grid" class="fa fa-columns"></i>
+                    <i id="btn-add-div" title="Div" class="fa fa-square"></i>
+                    <i id="btn-add-image" title="Image" class="fa fa-picture-o"></i>
+                    <i id="btn-add-text" title="Text" class="fa fa-font"></i>
+                </div>
+    
+                <div class="menu-box">
+                    <ul>
+                        <li id="properties" class="active">Properties</li>
+                        <li id="css">CSS</li>
+                    </ul>
+    
+                    <div class="prop-container" tab-id="properties">
+                        <div class="properties" id="properties-container">
+                        </div>
+                    </div>
+    
+                    <div class="prop-container" tab-id="css">
+                        <div class="properties" id="css-container">
+                            <textarea id="css-textarea"></textarea>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="menu-box">
+                    <button id="btn-save">Save</button>
+                    <button id="btn-undo">Undo</button>
+                </div>
+    
+    
+                <div id="menu-library" class="menu-box">
+                    <ul>
+                        <li id="library" class="active">Library</li>
+                        <li id="external-css">External CSS</li>
+                    </ul>
+    
+                    <div class="prop-container" tab-id="library">
+                        <div id="library-items-container"></div>
+                        <p id="btn-add-file" class="button">Add files</p>
+                        <input type="file" accept="image/*" id="library-file-select" multiple="multiple"/>
+                    </div>
+    
+                    <div class="prop-container" tab-id="external-css">
+                        SOmething something datrk side
+                    </div>
+                </div>
+            </div>
+            
+            <div class="clear"></div>
+        </div>
 
-        <div class="clear"></div>
 
         <div id="status">
             <p>Up and running!</p>

@@ -1,7 +1,8 @@
 html {
-  background-color: #242424;
+  background-color: #333333;
   color: #f1f1f1;
   font-family: 'Noto Sans', sans-serif;
+  font-weight: 300;
   margin: 0px;
   padding: 0px; }
 
@@ -10,185 +11,208 @@ body {
   padding: 0px;
   font-size: 12px; }
 
-div#status {
-  height: 3%;
-  margin: 0px;
-  padding: 0px;
-  color: #e2e2e2;
-  font-size: 11px;
+div#top-menu {
+  background-color: white;
+  color: #111;
   text-transform: uppercase;
-  background-color: #242424; }
+  font-size: 11px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%; }
+  div#top-menu ul li {
+    display: inline-block;
+    padding: 5px;
+    cursor: pointer; }
+    div#top-menu ul li:hover {
+      background-color: #eee; }
+  div#top-menu ul li.selected {
+    color: #8cbf26; }
+  div#top-menu div#top-submenu {
+    background-color: #333333;
+    color: white;
+    width: 100%; }
+    div#top-menu div#top-submenu ul {
+      display: none; }
+      div#top-menu div#top-submenu ul li:hover {
+        background-color: #555555; }
+
+div#status {
+  color: white;
+  font-size: 10px;
+  text-transform: uppercase;
+  background-color: #333333;
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  width: 100%; }
   div#status p {
     padding-top: 3px;
     padding-left: 5px; }
 
-div#canvas-container {
-  margin: 0px;
-  padding: 0px;
-  overflow: scroll;
-  background-color: #5A5B5D;
-  height: 97%;
-  width: 75%;
-  float: left;
-  text-align: center; }
-
-#canvas {
-  width: 960px;
-  height: 1100px; }
-
-div#menu {
-  width: 25%;
-  margin: 0px;
-  float: right;
-  background-color: #181818;
-  height: 97%; }
-  div#menu div#elements {
-    padding: 5px;
-    padding-bottom: 0px; }
-    div#menu div#elements i {
-      -webkit-transition: background-color 5;
-      -moz-transition: background-color 5;
-      -ms-transition: background-color 5;
-      -o-transition: background-color 5;
-      transition: background-color 5;
-      display: inline-block;
-      width: 25px;
-      height: 25px;
-      text-align: center;
-      line-height: 25px;
-      cursor: pointer;
-      font-size: 15px; }
-      div#menu div#elements i:hover {
-        background-color: #2d2d2d; }
-  div#menu div.menu-box {
+div#workspace {
+  height: 100%;
+  overflow: hidden; }
+  div#workspace div#canvas-container {
     margin: 0px;
-    padding: 5px; }
-    div#menu div.menu-box div.prop-container {
-      background-color: #2d2d2d;
-      background-image: url("../img/box-bg.gif");
-      background-repeat: repeat-x; }
-    div#menu div.menu-box div#properties-container {
-      text-align: center;
-      margin: 0px;
-      padding: 0px; }
-      div#menu div.menu-box div#properties-container h1 {
-        text-transform: uppercase;
-        padding-bottom: 5px;
-        padding-top: 5px; }
-        div#menu div.menu-box div#properties-container h1 i {
-          cursor: pointer;
-          margin-left: 5px; }
-      div#menu div.menu-box div#properties-container div.prop-item {
-        margin-bottom: 2px;
-        position: relative;
-        height: 17px; }
-        div#menu div.menu-box div#properties-container div.prop-item label {
-          background-color: #4f5253;
-          text-align: left;
-          text-transform: uppercase;
-          position: absolute;
-          top: 2px;
-          left: 0px;
-          padding-left: 3px;
-          font-size: 12px;
-          width: 20%; }
-        div#menu div.menu-box div#properties-container div.prop-item input {
-          outline: none;
-          background-color: #4f5253;
-          color: #272727;
-          text-align: right;
-          border: none;
-          position: absolute;
-          right: 0px;
-          top: 0px;
-          font-size: 12px;
-          padding-right: 3px;
-          width: 80%; }
-      div#menu div.menu-box div#properties-container button {
-        width: 100%;
-        display: block;
-        background-color: #3f3f3f;
-        text-align: center;
-        border: none;
-        color: white;
-        text-transform: uppercase;
-        font-size: 11px;
-        padding: 2px;
-        cursor: pointer; }
-        div#menu div.menu-box div#properties-container button:hover {
-          opacity: 0.85; }
-      div#menu div.menu-box div#properties-container button#btn-save-changes {
-        margin-top: 25px; }
-      div#menu div.menu-box div#properties-container button.warning {
-        background-color: #e44972; }
-      div#menu div.menu-box div#properties-container textarea {
-        width: 100%;
-        background-color: #e2e2e2;
-        border: 1px solid #393939;
-        outline: none;
-        height: 250px; }
-    div#menu div.menu-box > ul {
-      border-bottom: 1px solid black; }
-      div#menu div.menu-box > ul li {
-        display: inline-block;
-        color: #b2b2b2;
-        background-image: -webkit-gradient(linear, left top, left bottom, from(#595959), to(#323232));
-        background-image: -webkit-linear-gradient(top, #595959, #323232);
-        background-image: -moz-linear-gradient(top, #595959, #323232);
-        background-image: -o-linear-gradient(top, #595959, #323232);
-        background-image: linear-gradient(to bottom, #595959, #323232);
-        border-top: 1px solid #646667;
-        text-transform: uppercase;
-        padding: 5px 10px;
-        font-size: 11px;
-        cursor: pointer;
-        width: 80px;
-        text-align: center; }
-        div#menu div.menu-box > ul li.active {
-          color: white;
-          background-image: -webkit-gradient(linear, left top, left bottom, from(#828383), to(#646566));
-          background-image: -webkit-linear-gradient(top, #828383, #646566);
-          background-image: -moz-linear-gradient(top, #828383, #646566);
-          background-image: -o-linear-gradient(top, #828383, #646566);
-          background-image: linear-gradient(to bottom, #828383, #646566); }
-        div#menu div.menu-box > ul li:hover {
-          opacity: 0.9; }
-  div#menu div#menu-library input[type=file] {
-    display: none; }
-  div#menu div#menu-library p.button {
-    background-color: #4d4e50;
-    display: block;
+    padding: 0px;
+    overflow: auto;
+    background-color: #5A5B5D;
+    height: 100%;
+    width: 80%;
+    float: left;
     text-align: center;
-    text-transform: uppercase;
-    width: 100%;
-    cursor: pointer;
-    padding: 3px 0px;
-    font-size: 11px; }
-    div#menu div#menu-library p.button:hover {
-      background-color: #393939; }
-  div#menu div#menu-library ul#library-file-list {
-    max-height: 200px;
-    overflow: auto; }
-    div#menu div#menu-library ul#library-file-list li {
-      position: relative; }
-      div#menu div#menu-library ul#library-file-list li:hover {
-        background-color: #393939; }
-      div#menu div#menu-library ul#library-file-list li img {
-        margin-right: 3px; }
-      div#menu div#menu-library ul#library-file-list li i {
-        position: absolute;
-        right: 5px;
-        top: 5px;
-        text-transform: none;
-        font-weight: 600;
-        cursor: pointer; }
+    margin-top: 25px;
+    margin-bottom: 17px; }
+  div#workspace #canvas {
+    width: 960px;
+    height: 1100px; }
+  div#workspace div#menu {
+    width: 20%;
+    margin: 0px;
+    float: right;
+    background-color: #333333;
+    height: 100%;
+    margin-top: 25px; }
+    div#workspace div#menu div#elements {
+      padding: 5px;
+      padding-bottom: 0px; }
+      div#workspace div#menu div#elements i {
+        display: inline-block;
+        width: 25px;
+        height: 25px;
+        text-align: center;
+        line-height: 25px;
+        cursor: pointer;
+        font-size: 15px; }
+        div#workspace div#menu div#elements i:hover {
+          background-color: #2d2d2d; }
+    div#workspace div#menu div.menu-box {
+      margin: 0px;
+      padding: 5px;
+      /* define html properties form css */ }
+      div#workspace div#menu div.menu-box div#properties-container {
+        text-align: center;
+        margin: 0px;
+        padding: 0px; }
+        div#workspace div#menu div.menu-box div#properties-container h1 {
+          text-transform: uppercase;
+          padding-bottom: 5px;
+          padding-top: 5px; }
+          div#workspace div#menu div.menu-box div#properties-container h1 i {
+            cursor: pointer;
+            margin-left: 5px; }
+        div#workspace div#menu div.menu-box div#properties-container div.prop-item {
+          margin-bottom: 1px;
+          position: relative;
+          height: 17px;
+          background-color: #555555; }
+          div#workspace div#menu div.menu-box div#properties-container div.prop-item:hover {
+            background-color: #626262; }
+            div#workspace div#menu div.menu-box div#properties-container div.prop-item:hover input {
+              background-color: #626262; }
+          div#workspace div#menu div.menu-box div#properties-container div.prop-item label {
+            text-align: left;
+            text-transform: uppercase;
+            position: absolute;
+            top: 2px;
+            left: 0px;
+            padding-left: 3px;
+            font-size: 11px;
+            width: 30%; }
+          div#workspace div#menu div.menu-box div#properties-container div.prop-item input {
+            outline: none;
+            background-color: #555555;
+            color: #f2f2f2;
+            text-align: right;
+            border: none;
+            position: absolute;
+            right: 0px;
+            top: 0px;
+            font-size: 12px;
+            padding-right: 3px;
+            height: 15px;
+            width: 70%; }
+        div#workspace div#menu div.menu-box div#properties-container button {
+          width: 100%;
+          display: block;
+          background-color: #3f3f3f;
+          text-align: center;
+          border: none;
+          color: white;
+          text-transform: uppercase;
+          font-size: 11px;
+          padding: 2px;
+          cursor: pointer;
+          margin: 0px;
+          margin-bottom: 1px; }
+          div#workspace div#menu div.menu-box div#properties-container button:hover {
+            opacity: 0.92; }
+        div#workspace div#menu div.menu-box div#properties-container button#btn-save-changes {
+          background-color: #8cbf26; }
+        div#workspace div#menu div.menu-box div#properties-container button#btn-delete {
+          background-color: #555555; }
+          div#workspace div#menu div.menu-box div#properties-container button#btn-delete:hover {
+            background-color: #e44972; }
+        div#workspace div#menu div.menu-box div#properties-container textarea {
+          width: 100%;
+          background-color: #555555;
+          outline: none;
+          height: 250px; }
+      div#workspace div#menu div.menu-box > ul {
+        border-bottom: 1px solid #555555;
+        padding-left: 5px; }
+        div#workspace div#menu div.menu-box > ul li {
+          display: inline-block;
+          color: #999;
+          background-color: #555555;
+          text-transform: uppercase;
+          padding: 3px 10px;
+          font-size: 11px;
+          cursor: pointer;
+          text-align: center; }
+          div#workspace div#menu div.menu-box > ul li.active {
+            color: white; }
+          div#workspace div#menu div.menu-box > ul li:hover {
+            color: white; }
+    div#workspace div#menu div#menu-library input[type=file] {
+      display: none; }
+    div#workspace div#menu div#menu-library p.button {
+      background-color: #8cbf26;
+      display: block;
+      text-align: center;
+      text-transform: uppercase;
+      width: 100%;
+      cursor: pointer;
+      padding: 2px 0px;
+      font-size: 11px;
+      margin-top: 1px; }
+      div#workspace div#menu div#menu-library p.button:hover {
+        opacity: 0.93; }
+    div#workspace div#menu div#menu-library ul#library-file-list {
+      max-height: 200px;
+      overflow: auto; }
+      div#workspace div#menu div#menu-library ul#library-file-list li {
+        position: relative;
+        background-color: #555555;
+        margin-top: 1px; }
+        div#workspace div#menu div#menu-library ul#library-file-list li:hover {
+          background-color: #333333; }
+        div#workspace div#menu div#menu-library ul#library-file-list li img {
+          margin-right: 3px; }
+        div#workspace div#menu div#menu-library ul#library-file-list li i {
+          position: absolute;
+          right: 5px;
+          top: 5px;
+          text-transform: none;
+          font-weight: 600;
+          cursor: pointer; }
+  div#workspace div.clear {
+    clear: both; }
 
-div.clear {
-  clear: both; }
-
-div#css-container {
-  position: relative; }
-
+/*div#css-container {
+    position: relative;
+}*/
 div#preloader {
   position: absolute;
   width: 100%;
@@ -200,22 +224,3 @@ div#preloader {
   div#preloader p {
     text-align: center;
     padding: 20px; }
-
-/* Scrollbars */
-::-webkit-scrollbar {
-  width: 5px;
-  height: 5px; }
-
-::-webkit-scrollbar-button:start:decrement,
-::-webkit-scrollbar-button:end:increment {
-  height: 0px;
-  display: block;
-  background-color: #4d4e50; }
-
-::-webkit-scrollbar-track-piece {
-  background-color: #4d4e50;
-  -webkit-border-radius: 6px; }
-
-::-webkit-scrollbar-thumb:vertical {
-  background-color: #393939;
-  -webkit-border-radius: 6px; }

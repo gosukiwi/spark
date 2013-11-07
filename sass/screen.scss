@@ -22,15 +22,16 @@
 	transition: $transition-property $transition-time;
 }
 
-$grey: #393939;
-$dark-grey: #242424;
-$light-grey: #4D4E50;
-$pale-grey: #E2E2E2;
+$grey: #333333;
+$light-grey: #555555;
+$green: #8cbf26;
+$pink: #e44972;
 
 html {
-    background-color: $dark-grey;
+    background-color: $grey;
     color: #f1f1f1;
     font-family: 'Noto Sans', sans-serif;
+    font-weight: 300;
     margin: 0px;
     padding: 0px;
 }
@@ -41,14 +42,57 @@ body {
     font-size: 12px;
 }
 
-div#status {
-    height: 3%;
-    margin: 0px;
-    padding: 0px;
-    color: $pale-grey;
-    font-size: 11px;
+div#top-menu {
+    background-color: white;
+    color: #111;
     text-transform: uppercase;
-    background-color: $dark-grey;
+    font-size: 11px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    
+    ul {
+        li {
+            display: inline-block;
+            padding: 5px;
+            cursor: pointer;
+            
+            &:hover {
+                background-color: #eee;
+            }
+        }
+        
+        li.selected {
+            color: $green;
+        }
+    }
+    
+    div#top-submenu {
+        background-color: $grey;
+        color: white;
+        width: 100%;
+        
+        ul {
+            display: none;
+            li {
+                &:hover {
+                    background-color: $light-grey;
+                }
+            }
+        }
+    }
+}
+
+div#status {
+    color: white;
+    font-size: 10px;
+    text-transform: uppercase;
+    background-color: $grey;
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
 
     p {
         padding-top: 3px;
@@ -56,228 +100,240 @@ div#status {
     }
 }
 
-div#canvas-container {
-    margin: 0px;
-    padding: 0px;
-    overflow: scroll;
-    background-color: #5A5B5D;
-    height: 97%;
-    width: 75%;
-    float: left;
-    text-align: center;
-}
-
-#canvas {
-    width: 960px;
-    height: 1100px;
-}
-
-
-
-div#menu {
-    width: 25%;
-    margin: 0px;
-    float: right;
-    background-color: #181818;
-    height: 97%;
-
-    div#elements {
-        padding: 5px;
-        padding-bottom: 0px;
-
-        i {
-            @include transition(background-color, 5);
-            display: inline-block;
-            width: 25px;
-            height: 25px;
-            text-align: center;
-            line-height: 25px;
-            cursor: pointer;
-            font-size: 15px;
-
-            &:hover {
-                background-color: #2d2d2d;
-            }
-        }
-    }
-
-    div.menu-box {
+div#workspace {
+    height: 100%;
+    overflow: hidden;
+    
+    div#canvas-container {
         margin: 0px;
-        padding: 5px;
-
-        div.prop-container {
-            background-color: #2d2d2d;
-            background-image: url('../img/box-bg.gif');
-            background-repeat: repeat-x;
-        }
-
-        div#properties-container {
-            text-align: center;
-            margin: 0px;
-            padding: 0px;
-
-            h1 {
-                text-transform: uppercase;
-                padding-bottom: 5px;
-                padding-top: 5px;
-
-                i {
-                    cursor: pointer;
-                    margin-left: 5px;
-                }
-            }
-
-            div.prop-item {
-                margin-bottom: 2px;
-                position: relative;
-                height: 17px;
-
-                label {
-                    background-color: #4f5253;
-                    text-align: left;
-                    text-transform: uppercase;
-                    position: absolute;
-                    top: 2px;
-                    left: 0px;
-                    padding-left: 3px;
-                    font-size: 12px;
-                    width: 20%;
-                }
-
-                input {
-                    outline: none;
-                    background-color: #4f5253;
-                    color: #272727;
-                    text-align: right;
-                    border: none;
-                    position: absolute;
-                    right: 0px;
-                    top: 0px;
-                    font-size: 12px;
-                    padding-right: 3px;
-                    width: 80%;
-                }
-            }
-
-            button {
-                width: 100%;
-                display: block;
-                background-color: #3f3f3f;
-                text-align: center;
-                border: none;
-                color: white;
-                text-transform: uppercase;
-                font-size: 11px;
-                padding: 2px;
-                cursor: pointer;
-
-                &:hover {
-                    opacity: 0.85;
-                }
-            }
-
-            button#btn-save-changes {
-                margin-top: 25px;
-            }
-
-            button.warning {
-                background-color: #e44972;
-            }
-
-            textarea {
-                width: 100%;
-                background-color: $pale-grey;
-                border: 1px solid $grey;
-                outline: none;
-                height: 250px;
-            }
-        }
-
-        > ul {
-            border-bottom: 1px solid black;
-
-            li {
+        padding: 0px;
+        overflow: auto;
+        background-color: #5A5B5D;
+        height: 100%;
+        width: 80%;
+        float: left;
+        text-align: center;
+        margin-top: 25px;
+        margin-bottom: 17px;
+    }
+    
+    #canvas {
+        width: 960px;
+        height: 1100px;
+    }
+    
+    div#menu {
+        width: 20%;
+        margin: 0px;
+        float: right;
+        background-color: $grey;
+        height: 100%;
+        margin-top: 25px;
+    
+        div#elements {
+            padding: 5px;
+            padding-bottom: 0px;
+    
+            i {
                 display: inline-block;
-                color: #b2b2b2;
-                @include background-gradient(#595959, #323232);
-                border-top: 1px solid #646667;
-                text-transform: uppercase;
-                padding: 5px 10px;
-                font-size: 11px;
-                cursor: pointer;
-                width: 80px;
+                width: 25px;
+                height: 25px;
                 text-align: center;
-
-                &.active {
+                line-height: 25px;
+                cursor: pointer;
+                font-size: 15px;
+    
+                &:hover {
+                    background-color: #2d2d2d;
+                }
+            }
+        }
+    
+        div.menu-box {
+            margin: 0px;
+            padding: 5px;
+    
+            /* define html properties form css */
+            div#properties-container {
+                text-align: center;
+                margin: 0px;
+                padding: 0px;
+    
+                h1 {
+                    text-transform: uppercase;
+                    padding-bottom: 5px;
+                    padding-top: 5px;
+    
+                    i {
+                        cursor: pointer;
+                        margin-left: 5px;
+                    }
+                }
+    
+                div.prop-item {
+                    margin-bottom: 1px;
+                    position: relative;
+                    height: 17px;
+                    background-color: $light-grey;
+                    
+                    &:hover {
+                        background-color: #626262;
+                        
+                        input {
+                            background-color: #626262;
+                        }
+                    }
+    
+                    label {
+                        text-align: left;
+                        text-transform: uppercase;
+                        position: absolute;
+                        top: 2px;
+                        left: 0px;
+                        padding-left: 3px;
+                        font-size: 11px;
+                        width: 30%;
+                    }
+    
+                    input {
+                        outline: none;
+                        background-color: $light-grey;
+                        color: #f2f2f2;
+                        text-align: right;
+                        border: none;
+                        position: absolute;
+                        right: 0px;
+                        top: 0px;
+                        font-size: 12px;
+                        padding-right: 3px;
+                        height: 15px;
+                        width: 70%;
+                    }
+                }
+    
+                button {
+                    width: 100%;
+                    display: block;
+                    background-color: #3f3f3f;
+                    text-align: center;
+                    border: none;
                     color: white;
-                    @include background-gradient(#828383, #646566);
-                }
-
-                &:hover {
-                    opacity: 0.9;
-                }
-            }
-        }
-
-
-        
-    }
-
-    div#menu-library {
-        input[type=file] {
-            display: none;
-        }
-
-        p.button {
-            background-color: $light-grey;
-            display: block;
-            text-align: center;
-            text-transform: uppercase;
-            width: 100%;
-            cursor: pointer;
-            padding: 3px 0px;
-            font-size: 11px;
-
-            &:hover {
-                background-color: $grey;
-            }
-        }
-
-        ul#library-file-list {
-            max-height: 200px;
-            overflow: auto;
-
-            li {
-                position: relative;
-
-                &:hover {
-                    background-color: $grey;
-                }
-
-                img {
-                    margin-right: 3px;
-                }
-
-                i {
-                    position: absolute;
-                    right: 5px;
-                    top: 5px;
-                    text-transform: none;
-                    font-weight: 600;
+                    text-transform: uppercase;
+                    font-size: 11px;
+                    padding: 2px;
                     cursor: pointer;
+                    margin: 0px;
+                    margin-bottom: 1px;
+    
+                    &:hover {
+                        opacity: 0.92;
+                    }
+                }
+    
+                button#btn-save-changes {
+                    background-color: $green;
+                }
+    
+                button#btn-delete {
+                    background-color: $light-grey;
+                    
+                    &:hover {
+                        background-color: $pink;
+                    }
+                }
+    
+                textarea {
+                    width: 100%;
+                    background-color: $light-grey;
+                    outline: none;
+                    height: 250px;
+                }
+            }
+    
+            > ul {
+                border-bottom: 1px solid $light-grey;
+                padding-left: 5px;
+                
+                li {
+                    display: inline-block;
+                    color: #999;
+                    background-color: $light-grey;
+                    text-transform: uppercase;
+                    padding: 3px 10px;
+                    font-size: 11px;
+                    cursor: pointer;
+                    text-align: center;
+    
+                    &.active {
+                        color: white;
+                    }
+    
+                    &:hover {
+                        color: white;
+                    }
+                }
+            }
+        }
+    
+        div#menu-library {
+            input[type=file] {
+                display: none;
+            }
+    
+            p.button {
+                background-color: $green;
+                display: block;
+                text-align: center;
+                text-transform: uppercase;
+                width: 100%;
+                cursor: pointer;
+                padding: 2px 0px;
+                font-size: 11px;
+                margin-top: 1px;
+    
+                &:hover {
+                    opacity: 0.93;
+                }
+            }
+    
+            ul#library-file-list {
+                max-height: 200px;
+                overflow: auto;
+    
+                li {
+                    position: relative;
+                    background-color: $light-grey;
+                    margin-top: 1px;
+    
+                    &:hover {
+                        background-color: $grey;
+                    }
+    
+                    img {
+                        margin-right: 3px;
+                    }
+    
+                    i {
+                        position: absolute;
+                        right: 5px;
+                        top: 5px;
+                        text-transform: none;
+                        font-weight: 600;
+                        cursor: pointer;
+                    }
                 }
             }
         }
     }
+    
+    div.clear {
+        clear: both;
+    }
 }
 
-div.clear {
-    clear: both;
-}
-
-div#css-container {
+/*div#css-container {
     position: relative;
-}
+}*/
 
 div#preloader {
     position: absolute;
@@ -292,28 +348,4 @@ div#preloader {
         text-align: center;
         padding: 20px;
     }
-}
-
-/* Scrollbars */
-
-::-webkit-scrollbar {
-    width: 5px;
-    height: 5px;
-}
-
-::-webkit-scrollbar-button:start:decrement,
-::-webkit-scrollbar-button:end:increment  {
-    height: 0px;
-    display: block;
-    background-color: $light-grey;
-}
-
-::-webkit-scrollbar-track-piece  {
-    background-color: $light-grey;
-    -webkit-border-radius: 6px;
-}
-
-::-webkit-scrollbar-thumb:vertical {
-    background-color: $grey;
-    -webkit-border-radius: 6px;
 }
