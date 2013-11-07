@@ -210,9 +210,6 @@ div#workspace {
   div#workspace div.clear {
     clear: both; }
 
-/*div#css-container {
-    position: relative;
-}*/
 div#preloader {
   position: absolute;
   width: 100%;
