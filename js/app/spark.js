@@ -11,7 +11,7 @@ define([
         'app/presenters/spark-ui/html-properties', 
         'app/presenters/spark-ui/css-editor', 
         'app/presenters/spark-ui/top-menu', 
-        'app/elements/canvas', 
+        'app/lib/elements/canvas', 
         'jquery-ui'
     ], function (_, $, presenter_library, presenter_properties, presenter_css, presenter_top_menu, canvasElement) {
     "use strict";
