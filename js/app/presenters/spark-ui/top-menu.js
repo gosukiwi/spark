@@ -1,4 +1,4 @@
-define(['jquery', 'underscore', 'jaf/presenter', 'app/lib/history'], function ($, _, presenter, history) {
+define(['jquery', 'underscore', 'jaf/presenter', 'app/lib/history', 'json'], function ($, _, presenter, history) {
     var canvas;
     
     // menu enables the user to easily choose a command, uppon chosing one
@@ -13,7 +13,7 @@ define(['jquery', 'underscore', 'jaf/presenter', 'app/lib/history'], function ($
     
     function save() {
         function getTree(root) {
-            var output = [root.type];
+            var output = [{ type: root.type, props: root.properties.props() }];
             
             if(root.children()) {
                 _.each(root.children(), function (child) {
@@ -24,7 +24,7 @@ define(['jquery', 'underscore', 'jaf/presenter', 'app/lib/history'], function ($
             return output;
         }
         
-        console.log(getTree(canvas));
+        console.log(JSON.stringify(getTree(canvas)));
     }
     
     return presenter.extend({

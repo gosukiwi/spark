@@ -8,6 +8,7 @@ requirejs.config({
         'md5': 'vendor/md5',
         'hogan': 'vendor/hogan',
         'codemirror': 'vendor/codemirror',
+        'json': 'vendor/json2'
     }
 });
 

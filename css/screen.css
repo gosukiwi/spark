@@ -200,13 +200,20 @@ div#workspace {
           background-color: #333333; }
         div#workspace div#menu div#menu-library ul#library-file-list li img {
           margin-right: 3px; }
+        div#workspace div#menu div#menu-library ul#library-file-list li span {
+          max-width: 180px;
+          overflow: hidden;
+          display: inline-block; }
+          div#workspace div#menu div#menu-library ul#library-file-list li span:hover {
+            max-width: none; }
         div#workspace div#menu div#menu-library ul#library-file-list li i {
           position: absolute;
           right: 5px;
-          top: 5px;
-          text-transform: none;
-          font-weight: 600;
-          cursor: pointer; }
+          top: 7px;
+          cursor: pointer;
+          font-size: 13px; }
+          div#workspace div#menu div#menu-library ul#library-file-list li i:hover {
+            opacity: 0.95; }
   div#workspace div.clear {
     clear: both; }
 

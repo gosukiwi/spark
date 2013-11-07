@@ -31,7 +31,7 @@ define([
         canvas.selected(true);
     });
 
-    // Presenters
+    /* Presenters */
 
     // library presenter
     presenters.library
