@@ -31,6 +31,13 @@ define(['jquery', 'underscore', 'jaf/presenter', 'jaf/view'], function ($, _, pr
                 elem.html(props);
             });
             
+            el.find('input').keydown(function (e) {
+                // If ENTER key was pressed
+                if(e.keyCode === 13) {
+                    el.find('#btn-save-changes').trigger('click');
+                }
+            });
+            
             el.find('#btn-delete').click(function () {
                 if(elem.type === 'canvas') {
                     throw 'Cannot delete canvas!';
