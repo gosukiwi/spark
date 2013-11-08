@@ -13,7 +13,7 @@ define(['underscore', 'jquery'], function (_, $) {
             speed = speed || 300;
             container.show();
             dialog.css('margin-top', '-' + dialog.height() + 'px').animate({
-                'margin-top': '200px'
+                'margin-top': ($(window).height() / 2 - dialog.height()) + 'px'
             }, speed);
                 
             // chainability
