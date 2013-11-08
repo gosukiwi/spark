@@ -1,4 +1,4 @@
-define(['jquery', 'underscore', 'jaf/presenter', 'app/lib/history', 'json'], function ($, _, presenter, history) {
+define(['jquery', 'underscore', 'jaf/presenter', 'app/lib/history', 'app/lib/modal-dialog', 'json'], function ($, _, presenter, history, modal) {
     var canvas;
     
     // menu enables the user to easily choose a command, uppon chosing one
@@ -8,6 +8,8 @@ define(['jquery', 'underscore', 'jaf/presenter', 'app/lib/history', 'json'], fun
             save();
         } else if(command === 'undo') {
             history.undo();
+        } else if(command === 'about') {
+            about();
         }
     }
     
@@ -25,6 +27,18 @@ define(['jquery', 'underscore', 'jaf/presenter', 'app/lib/history', 'json'], fun
         }
         
         console.log(JSON.stringify(getTree(canvas)));
+    }
+    
+    function about() {
+        modal
+            .title('About')
+            .content('Spark is an app to help you easily modelate CSS and HTML')
+            .buttons({
+                'Ok': function () {
+                    modal.hide();
+                }
+            })
+            .show();
     }
     
     return presenter.extend({
