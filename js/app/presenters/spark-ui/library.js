@@ -4,45 +4,46 @@
  */
 define(['jquery', 'underscore', 'jaf/globals', 'jaf/presenter', 'jaf/view'], function ($, _, globals, presenter, view) {
     var el = $('#menu-library'),
-        filesContainer = el.find('#library-items-container');
+        filesContainer = el.find('#library-items-container'),
+        library_presenter;
+        
+    function draw_files() {
+        var formatted_files,
+            html;
+
+        formatted_files = _.map(_.keys(globals.library), 
+            function (name) {
+            return { 
+                name: name, 
+                file: globals.library[name].target.result 
+            };
+        });
+
+        html = view('spark-ui/library.mustache', {
+            files: formatted_files
+        });
+
+        // Remove all html and bindings
+        filesContainer.empty();
+        // Create html
+        filesContainer.html(html);
+        // Create bindings
+        filesContainer.find('i').click(remove_image);
+    }
+    
+    // callback when a file is beeing deletted
+    function remove_image() {
+        var name = $(this).attr('file-name');
+        delete globals.library[name];
+        library_presenter.trigger('image-removed');
+        draw_files();
+    }
 
     globals.library = {};
 
-    return presenter.extend({
+    // define the presenter we'll return
+    library_presenter = presenter.extend({
         init: function () {
-            var self = this;
-
-            function removeImage() {
-                var name = $(this).attr('file-name');
-                delete globals.library[name];
-                self.trigger('image-removed');
-                drawFiles();
-            }
-
-            function drawFiles() {
-                var formatted_files,
-                    html;
-
-                formatted_files = _.map(_.keys(globals.library), 
-                    function (name) {
-                    return { 
-                        name: name, 
-                        file: globals.library[name].target.result 
-                    };
-                });
-
-                html = view('spark-ui/library.mustache', {
-                    files: formatted_files
-                });
-
-                // Remove all html and bindings
-                filesContainer.empty();
-                // Create html
-                filesContainer.html(html);
-                // Create bindings
-                filesContainer.find('i').click(removeImage);
-            }
-
             el.find('#library-file-select').change(function (e) {
                 _.each(e.target.files, function (file) {
                     var reader = new FileReader(),
@@ -50,8 +51,8 @@ define(['jquery', 'underscore', 'jaf/globals', 'jaf/presenter', 'jaf/view'], fun
                     reader.readAsDataURL(file);
                     reader.onload = function (f) {
                         globals.library[fileName] = f;
-                        drawFiles();
-                        self.trigger('image-added');
+                        draw_files();
+                        library_presenter.trigger('image-added');
                     };
                 });
             });
@@ -59,6 +60,13 @@ define(['jquery', 'underscore', 'jaf/globals', 'jaf/presenter', 'jaf/view'], fun
             el.find('#btn-add-file').click(function () {
                 el.find('#library-file-select').click();
             });
+        },
+        
+        redraw: function () {
+            draw_files();
         }
     });
+    
+    // finally return the presenter
+    return library_presenter;
 });

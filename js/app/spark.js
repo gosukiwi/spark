@@ -58,6 +58,7 @@ define([
     presenters.menu
         .on('savefile-loaded', function (params) {
             presenters.css.val(params.css);
+            presenters.library.redraw();
         })
         .on('generate-savefile', function (savefile) {
             presenters.menu.css(presenters.css.val());
