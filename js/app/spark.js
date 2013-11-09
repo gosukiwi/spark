@@ -59,6 +59,9 @@ define([
         .on('savefile-loaded', function (params) {
             presenters.css.val(params.css);
         })
+        .on('generate-savefile', function (savefile) {
+            presenters.menu.css(presenters.css.val());
+        })
         .init(canvas);
     
     return {

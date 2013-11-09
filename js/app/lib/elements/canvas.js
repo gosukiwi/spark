@@ -27,10 +27,6 @@ define([
          * METHODS
          */
          
-        canvas.elements = function () {
-            return elements;
-        };
-
         /*
         * Sets the CSS of the canvas.
         * TODO: Move to spark.js?

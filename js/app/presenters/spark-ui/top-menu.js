@@ -1,6 +1,7 @@
-define(['jquery', 'underscore', 'jaf/presenter', 'jaf/view', 'app/lib/history', 'app/lib/modal-dialog', 'json', 'base64'], function ($, _, presenter, view, history, modal) {
+define(['jquery', 'underscore', 'jaf/presenter', 'jaf/view', 'jaf/globals', 'app/lib/history', 'app/lib/modal-dialog', 'json', 'base64'], function ($, _, presenter, view, globals, history, modal) {
     var canvas,
-        menu_presenter;
+        menu_presenter,
+        css;
     
     // menu enables the user to easily choose a command, uppon chosing one
     // execute it
@@ -33,12 +34,22 @@ define(['jquery', 'underscore', 'jaf/presenter', 'jaf/view', 'app/lib/history', 
             return output;
         }
         
+        // trigger the generate-savefile event
+        // spark.js listens to this event to copy the css editor
+        // value into the css variable of this file
+        menu_presenter.trigger('generate-savefile');
+        
+        // generate the save object
         saveobj = {
             'elements': get_tree(canvas),
-            'css': canvas.css()
+            'css': css,
+            'library': globals.library
         };
+        
+        // the savefile is just a base64 encoding of the save object as a JSON string
         savefile = Base64.encode(JSON.stringify(saveobj));
         
+        // show a modal dialog with a link to the savefile
         modal
             .title('Save')
             .content(view('forms/save.mustache', {
@@ -76,14 +87,22 @@ define(['jquery', 'underscore', 'jaf/presenter', 'jaf/view', 'app/lib/history', 
         
         // given a base64 encoded json string, load it to spark
         function load_savefile(base64_encoded_json) {
+            // get a plain old javascript object from the savefile
             var saveobj = $.parseJSON(Base64.decode(base64_encoded_json));
+            // set the css
             canvas.css(saveobj.css);
+            // set the library
+            globals.library = saveobj.library || {};
+            // create elements
             visit(saveobj.elements);
             
             // once all the elements have been visited (created)
             menu_presenter.trigger('savefile-loaded', {
                 css: canvas.css()
             });
+            
+            // as loading is now done, hide the modal
+            modal.hide();
         }
         
         // visit each element and create recursively
@@ -162,6 +181,10 @@ define(['jquery', 'underscore', 'jaf/presenter', 'jaf/view', 'app/lib/history', 
                 $('#top-submenu ul').hide();
                 $('#top-menu li.selected').removeClass('selected');
             });
+        },
+        
+        css: function (code) {
+            css = code;
         }
     });
     
