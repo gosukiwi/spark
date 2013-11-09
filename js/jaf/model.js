@@ -4,7 +4,7 @@
  * Use .get and .set for attributes manipulation
  */
 
-define(['jaf/eventer'], function (eventer) {
+define(['underscore', 'jaf/eventer'], function (_, eventer) {
     "use strict";
 
     function setMany(model, attrs) {
@@ -20,8 +20,9 @@ define(['jaf/eventer'], function (eventer) {
     // Return a function which takes an object 
     // and adds events
     return {
-        extend: function (obj) {
+        extend: function (base) {
             var listener = eventer.listener(),
+                obj = _.clone(base),
                 model;
               
             model = {
