@@ -1,8 +1,8 @@
 /*
  * An element representing a div layer
  */
-define(['underscore', 'jquery', 'jaf/view', 'app/lib/elements/container'], 
-        function (_, $, view, container_generator) {
+define(['underscore', 'jquery', 'jaf/view', 'app/lib/modal-dialog', 'app/lib/elements/container'], 
+        function (_, $, view, modal, container_generator) {
     "use strict";
 
     return function (element, success) {
@@ -20,12 +20,12 @@ define(['underscore', 'jquery', 'jaf/view', 'app/lib/elements/container'],
         });
 
         form = view('forms/form-grid-create.mustache');
-        form.dialog({
-            modal: true,
-            width: 400,
-            buttons: {
-                'Ok': function () {
-                    var cols = $(this).find('#grid-input').val();
+        modal
+            .title('Create grid')
+            .content(form)
+            .buttons({
+                'Create': function () {
+                    var cols = form.find('#grid-input').val();
                     
                     _.each(cols.split(' '), function (n) {
                         var column = parseInt(n, 10);
@@ -39,13 +39,13 @@ define(['underscore', 'jquery', 'jaf/view', 'app/lib/elements/container'],
                         
                     container.selected(true);
                     
-                    $(this).dialog('close');
+                    modal.hide();
                 },
-
+                
                 'Cancel': function () {
-                    $(this).dialog('close');
+                    modal.hide();
                 }
-            }
-        });
+            })
+            .show();
     };
 });
