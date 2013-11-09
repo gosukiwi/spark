@@ -44,7 +44,7 @@ define(['jaf/eventer', 'jaf/model', 'md5', 'app/lib/history', 'app/lib/elements/
             // attributes
             'isContainer': false,
             'isResizable': false,
-            'properties': model({}),
+            'properties': model.extend({}),
             'parent': function () {
                 return parent;
             },

@@ -19,50 +19,61 @@ define(['jaf/eventer'], function (eventer) {
 
     // Return a function which takes an object 
     // and adds events
-    return function (obj) {
-        var listener = eventer.listener(),
-            model;
-
-        model = {
-            // listen to events
-            on: function (name, cb) {
-                listener.listen(name, cb);
-            },
+    return {
+        extend: function (obj) {
+            var listener = eventer.listener(),
+                model;
+              
+            model = {
+                // listen to events
+                on: function (name, cb) {
+                    listener.listen(name, cb);
+                },
+                
+                // return a copy of the object attributes
+                props: function() {
+                    return _.clone(obj);
+                },
+    
+                // delete all attributes from the object
+                clear: function () {
+                    obj = {};
+                },
+    
+                // set a value
+                set: function(attr, val) {
+                    if(_.isObject(attr)) {
+                        return setMany(model, attr);
+                    }
+    
+                    // if the object has a value, trigger
+                    // the CHANGING event
+                    if(obj[attr] && obj[attr] !== val) {
+                        listener.trigger('changing', attr, obj[attr]);
+                    }
+    
+                    obj[attr] = val;
+    
+                    // Finally trigger the CHANGED event
+                    listener.trigger('changed', attr, val);
+                },
+    
+                // get the value
+                get: function(attr) {
+                    return obj[attr];
+                }
+            };
             
-            // return a copy of the object attributes
-            props: function() {
-                return _.clone(obj);
-            },
-
-            // delete all attributes from the object
-            clear: function () {
-                obj = {};
-            },
-
-            // set a value
-            set: function(attr, val) {
-                if(_.isObject(attr)) {
-                    return setMany(model, attr);
+            
+            // copy the functions of the original object onto model
+            _.each(_.keys(obj), function (key) {
+                if(_.isFunction(obj[key])) {
+                    model[key] = obj[key];
                 }
-
-                // if the object has a value, trigger
-                // the CHANGING event
-                if(obj[attr] && obj[attr] !== val) {
-                    listener.trigger('changing', attr, obj[attr]);
-                }
-
-                obj[attr] = val;
-
-                // Finally trigger the CHANGED event
-                listener.trigger('changed', attr, val);
-            },
-
-            // get the value
-            get: function(attr) {
-                return obj[attr];
-            }
-        };
-
-        return model;
+            });
+    
+            // finally return it
+            return model;
+        }
     };
 });

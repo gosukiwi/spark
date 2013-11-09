@@ -2,7 +2,7 @@
 JAF is just another javascript framework. It uses MVP + a front router.
 
 # Dependencies
-JAF depends on underscore, jquery and hogan.
+JAF depends on requirejs, underscore, jquery and hogan.
 
 # Libraries
 JAF includes the following libraries
