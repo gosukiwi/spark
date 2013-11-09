@@ -55,7 +55,11 @@ define([
         .init();
         
     // top menu presenter
-    presenters.menu.init(canvas);
+    presenters.menu
+        .on('savefile-loaded', function (params) {
+            presenters.css.val(params.css);
+        })
+        .init(canvas);
     
     return {
         // Binding and jquery ui initialization

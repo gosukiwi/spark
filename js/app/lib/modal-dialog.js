@@ -33,7 +33,11 @@ define(['underscore', 'jquery'], function (_, $) {
         },
         
         'content': function (content) {
-            dialog.find('#modal-dialog-content').html(content);
+            if(_.isObject(content)) {
+                dialog.find('#modal-dialog-content').empty().append(content);
+            } else {
+                dialog.find('#modal-dialog-content').html(content);
+            }
             // chainability
             return this;
         },
@@ -55,6 +59,12 @@ define(['underscore', 'jquery'], function (_, $) {
                 footer.append(btn);
             });
             
+            // chainability
+            return this;
+        },
+        
+        'on': function (el, evt, cb) {
+            dialog.find(el).on(evt, cb);
             // chainability
             return this;
         }

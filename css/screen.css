@@ -236,7 +236,8 @@ div#modal-dialog-container {
   bottom: 0px;
   width: 100%;
   height: 100%;
-  background-image: url("../img/transparent-dark.png"); }
+  background-image: url("../img/transparent-dark.png");
+  z-index: 99999; }
   div#modal-dialog-container div#modal-dialog {
     width: 700px;
     margin: auto;
@@ -247,6 +248,15 @@ div#modal-dialog-container {
       font-size: 15px; }
     div#modal-dialog-container div#modal-dialog div#modal-dialog-content {
       padding: 5px; }
+      div#modal-dialog-container div#modal-dialog div#modal-dialog-content input {
+        width: 100%;
+        border: 1px solid #555555;
+        color: #333333;
+        background-color: white;
+        font-size: 11px;
+        font-family: 'Noto Sans', sans-serif; }
+      div#modal-dialog-container div#modal-dialog div#modal-dialog-content a {
+        color: #8cbf26; }
     div#modal-dialog-container div#modal-dialog div#modal-dialog-footer {
       padding: 5px;
       text-align: right; }
@@ -254,7 +264,8 @@ div#modal-dialog-container {
         background-color: #8cbf26;
         padding: 2px 10px;
         color: white;
-        cursor: pointer; }
+        cursor: pointer;
+        margin-left: 2px; }
         div#modal-dialog-container div#modal-dialog div#modal-dialog-footer .button:hover {
           opacity: 0.8; }
 

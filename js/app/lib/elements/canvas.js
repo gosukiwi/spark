@@ -36,9 +36,14 @@ define([
         * TODO: Move to spark.js?
         */
         canvas.css = function (text) {
-            // parse the css to use the library
-            var css = cssParser(text);
-            $('#canvas').contents().find('#canvas-css').text(css);
+            var css;
+            
+            if(text === undefined) {
+                return $('#canvas').contents().find('#canvas-css').text();
+            } else {
+                css = cssParser(text);
+                $('#canvas').contents().find('#canvas-css').text(css);
+            }
         };
 
         // Do

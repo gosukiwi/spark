@@ -75,6 +75,8 @@ define(['jaf/eventer', 'jaf/model', 'md5', 'app/lib/history', 'app/lib/elements/
             * Adds a child element to this one
             */
             'add': function (type, params_obj) {
+                var final_element;
+                
                 if(!widget.isContainer) {
                     throw "Cannot add element to a non container";
                 }
@@ -98,7 +100,11 @@ define(['jaf/eventer', 'jaf/model', 'md5', 'app/lib/history', 'app/lib/elements/
                     elem.parent().el().append(elem.el());
                     // and set as selected, this is useful so all new elements are born selected
                     elem.selected(true);
+                    
+                    final_element = elem;
                 }, params_obj);
+                
+                return final_element;
             },
             
             /*

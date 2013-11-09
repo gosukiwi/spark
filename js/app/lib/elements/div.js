@@ -65,8 +65,12 @@ define(['underscore', 'jquery', 'jaf/view', 'jquery-ui'],
 
         success(el);
 
-        // add a para
-        el.add('text');
+        // if we have to automatically create children
+        if(params.mode !== 'no-auto-child') {
+            // add a para
+            el.add('text');
+        }
+        
         // select it again
         el.selected(true);
     };

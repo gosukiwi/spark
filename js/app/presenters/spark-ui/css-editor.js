@@ -9,8 +9,7 @@ define(['jquery', 'underscore', 'jaf/presenter', 'codemirror'], function ($, _, 
                 'mode': 'text/css',
                 'lineNumbers': true,
                 'theme': 'monokai',
-                'lineWrapping': true,
-                'value': "/* Your custom CSS goes here */\n"
+                'lineWrapping': true
             });
             
             editor.on('change', function () {
@@ -18,8 +17,14 @@ define(['jquery', 'underscore', 'jaf/presenter', 'codemirror'], function ($, _, 
             });
         },
         
-        val: function () {
-            return editor.getValue();
+        val: function (value) {
+            if(value === undefined) {
+                return editor.getValue();
+            } else {
+                editor.setValue(value);
+                // chainability
+                return this;
+            }
         }
     });
 });
