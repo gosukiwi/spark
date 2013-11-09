@@ -180,6 +180,15 @@ define(['jaf/eventer', 'jaf/model', 'md5', 'app/lib/history', 'app/lib/elements/
             */
             'unlinkChild': function (el) {
                 children = _.without(children, el);
+            },
+            
+            /*
+            * Removes all children from this element
+            */
+            'clear': function () {
+                _.each(children, function (child) {
+                    child.remove();
+                });
             }
         };
 

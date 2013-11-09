@@ -1,4 +1,17 @@
-define(['jquery', 'underscore', 'jaf/presenter', 'jaf/view', 'jaf/globals', 'app/lib/history', 'app/lib/modal-dialog', 'json', 'base64'], function ($, _, presenter, view, globals, history, modal) {
+// presenter in charge of the top menu 
+define([
+    'jquery', 
+    'underscore', 
+    'jaf/presenter', 
+    'jaf/view', 
+    'jaf/globals', 
+    'app/lib/history', 
+    'app/lib/modal-dialog', 
+    'json', 
+    'base64'
+    ], function ($, _, presenter, view, globals, history, modal) {
+    "use strict";
+    
     var canvas,
         menu_presenter,
         css;
@@ -70,7 +83,7 @@ define(['jquery', 'underscore', 'jaf/presenter', 'jaf/view', 'jaf/globals', 'app
         function load_file(e) {
             var file = e.target.files[0],
                 reader = new FileReader();
-            
+                
             reader.onload = read_file;
             reader.readAsText(file);
         }
@@ -124,16 +137,40 @@ define(['jquery', 'underscore', 'jaf/presenter', 'jaf/view', 'jaf/globals', 'app
             parent.properties.set(container.props);
         }
         
-        modal
-            .title('Load')
-            .content(load_view)
-            .buttons({
-                'Close': function () {
-                    modal.hide();
-                }
-            })
-            .on('#load-file-picker', 'change', load_file)
-            .show();
+        function display_load_dialog() {
+            modal
+                .title('Load')
+                .content(load_view)
+                .buttons({
+                    'Close': function () {
+                        modal.hide();
+                    }
+                })
+                .on('#load-file-picker', 'change', load_file)
+                .show();
+        }
+        
+        // check if there are elements already
+        if(canvas.children().length !== 0) {
+            modal
+                .title('Canvas is not empty')
+                .content('Are you sure you want to load a savefile and clear this canvas?')
+                .buttons({
+                    'Ok': function () {
+                        modal.hide();
+                        canvas.clear();
+                        canvas.css('');
+                        globals.library = {};
+                        display_load_dialog();
+                    },
+                    'Cancel': function () {
+                        modal.hide();
+                    }
+                })
+                .show();
+        } else {
+            display_load_dialog();
+        }
     }
     
     // about command
