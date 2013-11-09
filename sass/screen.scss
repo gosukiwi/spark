@@ -408,3 +408,12 @@ div#modal-dialog-container {
     }
 }
 /* END OF MODAL DIALOG */
+
+/* TOOLTIP */
+div#tooltip {
+    position: absolute;
+    background-color: $green;
+    color: white;
+    padding: 3px;
+}
+/* END OF TOOLTIP */

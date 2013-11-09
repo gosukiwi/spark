@@ -13,8 +13,8 @@ define([
         'app/presenters/spark-ui/top-menu', 
         'app/lib/elements/canvas', 
         'app/lib/modal-dialog', 
-        'jquery-ui'
-    ], function (_, $, presenter_library, presenter_properties, presenter_css, presenter_top_menu, canvasElement, modal) {
+        'app/lib/tooltip'
+    ], function (_, $, presenter_library, presenter_properties, presenter_css, presenter_top_menu, canvasElement, modal, tooltip) {
     "use strict";
 
     var canvas,
@@ -87,7 +87,9 @@ define([
                             .show();
                     }
                 })
-                .tooltip();
+                .each(function (i, el) {
+                    tooltip.bind(el);
+                });
 
             // Menu boxes
             // first of all, hide all the divs

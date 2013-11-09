@@ -270,3 +270,11 @@ div#modal-dialog-container {
           opacity: 0.8; }
 
 /* END OF MODAL DIALOG */
+/* TOOLTIP */
+div#tooltip {
+  position: absolute;
+  background-color: #8cbf26;
+  color: white;
+  padding: 3px; }
+
+/* END OF TOOLTIP */
