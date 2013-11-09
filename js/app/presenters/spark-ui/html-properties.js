@@ -1,4 +1,4 @@
-define(['jquery', 'underscore', 'jaf/presenter', 'jaf/view', 'app/lib/modal-dialog'], function ($, _, presenter, view, modal) {
+define(['jquery', 'underscore', 'jaf/presenter', 'jaf/view', 'app/lib/modal-dialog', 'app/lib/tooltip'], function ($, _, presenter, view, modal, tooltip) {
     "use strict";
     
     var el = $('#properties-container');
@@ -59,7 +59,7 @@ define(['jquery', 'underscore', 'jaf/presenter', 'jaf/view', 'app/lib/modal-dial
                     .show();
             });
     
-            $('#btn-parent').tooltip();
+            tooltip.bind($('#btn-parent'));
     
             $('div.prop-item').click(function () {
                 $(this).find('input').focus();

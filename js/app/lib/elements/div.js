@@ -1,7 +1,7 @@
 /*
  * An element representing a div layer
  */
-define(['underscore', 'jquery', 'jaf/view', 'jquery-ui'], 
+define(['underscore', 'jquery', 'jaf/view'], 
         function (_, $, view) {
     "use strict";
     
