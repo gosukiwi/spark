@@ -40,7 +40,7 @@ define(['underscore', 'jaf/eventer'], function (_, eventer) {
                 obj = _.clone(base),
                 model;
 
-            base.set('guid', guid());
+            obj.guid = guid();
              
             model = {
                 // listen to events
