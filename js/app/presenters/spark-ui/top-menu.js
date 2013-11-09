@@ -46,14 +46,14 @@ define(['jquery', 'underscore', 'jaf/presenter', 'jaf/view', 'jaf/globals', 'app
             'library': globals.library
         };
         
-        // the savefile is just a base64 encoding of the save object as a JSON string
+        // the savefile is a lwz compressed, base64 string of the save object as a JSON string
         savefile = Base64.encode(JSON.stringify(saveobj));
         
         // show a modal dialog with a link to the savefile
         modal
             .title('Save')
             .content(view('forms/save.mustache', {
-                'savefile_link': 'data:text/plain;charset=utf-8,spark-savefile,' + savefile
+                'savefile_link': 'data:application/octet-stream;charset=utf-8,spark-savefile,' + savefile
             }))
             .buttons({
                 'Close': function () {
@@ -81,14 +81,14 @@ define(['jquery', 'underscore', 'jaf/presenter', 'jaf/view', 'jaf/globals', 'app
                 throw 'Invalid savefile';
             }
             
-            text = text.split(',')[1];
+            text = text.substring(15);
             load_savefile(text);
         }
         
         // given a base64 encoded json string, load it to spark
-        function load_savefile(base64_encoded_json) {
+        function load_savefile(savefile) {
             // get a plain old javascript object from the savefile
-            var saveobj = $.parseJSON(Base64.decode(base64_encoded_json));
+            var saveobj = $.parseJSON(Base64.decode(savefile));
             // set the css
             canvas.css(saveobj.css);
             // set the library
