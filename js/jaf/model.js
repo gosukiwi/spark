@@ -7,7 +7,8 @@
 define(['underscore', 'jaf/eventer'], function (_, eventer) {
     "use strict";
 
-    function setMany(model, attrs) {
+    // used when setting many attributes at once
+    function set_many(model, attrs) {
         var key;
 
         for(key in attrs) {
@@ -17,6 +18,20 @@ define(['underscore', 'jaf/eventer'], function (_, eventer) {
         }
     }
 
+    // used in guid generation, just a random number basically
+    function s4() {
+        return Math.floor((1 + Math.random()) * 0x10000)
+             .toString(16)
+             .substring(1);
+    }
+
+    // used for creation of pretty random numbers
+    // to storage models in memory
+    function guid() {
+        return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+            s4() + '-' + s4() + s4() + s4();
+    }
+
     // Return a function which takes an object 
     // and adds events
     return {
@@ -24,7 +39,9 @@ define(['underscore', 'jaf/eventer'], function (_, eventer) {
             var listener = eventer.listener(),
                 obj = _.clone(base),
                 model;
-              
+
+            base.set('guid', guid());
+             
             model = {
                 // listen to events
                 on: function (name, cb) {
@@ -44,7 +61,7 @@ define(['underscore', 'jaf/eventer'], function (_, eventer) {
                 // set a value
                 set: function(attr, val) {
                     if(_.isObject(attr)) {
-                        return setMany(model, attr);
+                        return set_many(model, attr);
                     }
     
                     // if the object has a value, trigger
