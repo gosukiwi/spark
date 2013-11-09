@@ -10,7 +10,10 @@ define(['jquery', 'underscore', 'jaf/presenter', 'jaf/view', 'app/lib/modal-dial
                 html;
 
             _.each(_.keys(props), function (key) {
-                formatted_properties.push({ name: key, value: props[key] });
+                // let's not draw the automatically generated guid property
+                if(key !== 'guid') {
+                    formatted_properties.push({ name: key, value: props[key] });
+                }
             });
     
             html = view('spark-ui/element-properties.mustache', {
