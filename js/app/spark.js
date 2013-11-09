@@ -12,8 +12,9 @@ define([
         'app/presenters/spark-ui/css-editor', 
         'app/presenters/spark-ui/top-menu', 
         'app/lib/elements/canvas', 
+        'app/lib/modal-dialog', 
         'jquery-ui'
-    ], function (_, $, presenter_library, presenter_properties, presenter_css, presenter_top_menu, canvasElement) {
+    ], function (_, $, presenter_library, presenter_properties, presenter_css, presenter_top_menu, canvasElement, modal) {
     "use strict";
 
     var canvas,
@@ -72,7 +73,19 @@ define([
             $('div#elements i')
                 .click(function () {
                     var name = $(this).attr('id').split('-')[2];
-                    canvas.curr().add(name);
+                    try {
+                        canvas.curr().add(name);
+                    } catch (e) {
+                        modal
+                            .title('Oops!')
+                            .content(e)
+                            .buttons({
+                                'Ok': function () {
+                                    modal.hide();
+                                }
+                            })
+                            .show();
+                    }
                 })
                 .tooltip();
 

@@ -1,4 +1,4 @@
-define(['jquery', 'underscore', 'jaf/presenter', 'jaf/view'], function ($, _, presenter, view) {
+define(['jquery', 'underscore', 'jaf/presenter', 'jaf/view', 'app/lib/modal-dialog'], function ($, _, presenter, view, modal) {
     "use strict";
     
     var el = $('#properties-container');
@@ -42,7 +42,21 @@ define(['jquery', 'underscore', 'jaf/presenter', 'jaf/view'], function ($, _, pr
                 if(elem.type === 'canvas') {
                     throw 'Cannot delete canvas!';
                 }
-                elem.curr().remove();
+                
+                modal
+                    .title('Remove ' + elem.curr().type)
+                    .content('Are you sure you want to delete this element?')
+                    .buttons({
+                        'Delete': function () {
+                            elem.curr().remove();
+                            modal.hide();
+                        },
+                        
+                        'Cancel': function () {
+                            modal.hide();
+                        }
+                    })
+                    .show();
             });
     
             $('#btn-parent').tooltip();

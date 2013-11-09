@@ -78,7 +78,7 @@ define(['jaf/eventer', 'jaf/model', 'md5', 'app/lib/history', 'app/lib/elements/
                 var final_element;
                 
                 if(!widget.isContainer) {
-                    throw "Cannot add element to a non container";
+                    throw "Cannot add an element to a non container.";
                 }
                 
                 params_obj = params_obj || {};
