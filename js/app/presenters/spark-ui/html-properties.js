@@ -6,7 +6,7 @@ define(['jquery', 'underscore', 'jaf/presenter', 'jaf/view', 'app/lib/modal-dial
     return presenter.extend({
         draw: function (elem) {
             var formatted_properties = [],
-                props = elem.properties.props(),
+                props = elem.properties.plain(),
                 html;
 
             _.each(_.keys(props), function (key) {

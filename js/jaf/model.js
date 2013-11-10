@@ -48,8 +48,8 @@ define(['underscore', 'jaf/eventer'], function (_, eventer) {
                     listener.listen(name, cb);
                 },
                 
-                // return a copy of the object attributes
-                props: function() {
+                // return an old javscript object with the object attributes
+                plain: function() {
                     return _.clone(obj);
                 },
     

@@ -229,6 +229,56 @@ div#preloader {
     text-align: center;
     padding: 20px; }
 
+/* PRESENTER: external-css */
+input#tb-external-css {
+  display: block;
+  width: 100%;
+  background-color: white;
+  border: none;
+  padding: 2px 5px;
+  box-sizing: border-box;
+  font-size: 11px;
+  margin: 0px;
+  margin-top: 1px; }
+
+button#btn-add-external-css {
+  background-color: #8cbf26;
+  padding: 2px;
+  color: white;
+  text-align: center;
+  text-transform: uppercase;
+  display: block;
+  border: none;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 11px;
+  cursor: pointer;
+  margin: 0px;
+  margin-top: 1px; }
+  button#btn-add-external-css:hover {
+    opacity: 0.9; }
+
+ul#external-css-list li {
+  position: relative; }
+  ul#external-css-list li span {
+    display: block;
+    background-color: #555555;
+    color: white;
+    font-family: 'Noto Sans', sans-serif;
+    border: none;
+    width: 100%;
+    padding: 2px 5px;
+    box-sizing: border-box;
+    font-size: 11px;
+    margin: 0px;
+    margin-top: 1px; }
+  ul#external-css-list li i {
+    position: absolute;
+    right: 3px;
+    top: 4px;
+    cursor: pointer; }
+
+/* END OF PRESENTER */
 /* MODAL DIALOG */
 div#modal-dialog-container {
   position: absolute;

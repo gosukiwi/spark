@@ -11,10 +11,11 @@ define([
         'app/presenters/spark-ui/html-properties', 
         'app/presenters/spark-ui/css-editor', 
         'app/presenters/spark-ui/top-menu', 
+        'app/presenters/spark-ui/external-css', 
         'app/lib/elements/canvas', 
         'app/lib/modal-dialog', 
         'app/lib/tooltip'
-    ], function (_, $, presenter_library, presenter_properties, presenter_css, presenter_top_menu, canvasElement, modal, tooltip) {
+    ], function (_, $, presenter_library, presenter_properties, presenter_css, presenter_top_menu, presenter_external_css, canvasElement, modal, tooltip) {
     "use strict";
 
     var canvas,
@@ -22,7 +23,8 @@ define([
         'library': presenter_library,
         'properties': presenter_properties,
         'css': presenter_css,
-        'menu': presenter_top_menu
+        'menu': presenter_top_menu,
+        'external-css': presenter_external_css
     };
 
     // Create a canvas and save it
@@ -65,6 +67,9 @@ define([
             presenters.menu.css(presenters.css.val());
         })
         .init(canvas);
+    
+    // extermal css
+    presenters['external-css'].init();
     
     return {
         // Binding and jquery ui initialization
