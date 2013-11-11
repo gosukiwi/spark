@@ -2,8 +2,8 @@
  * Create a new element based on the type
  */
 
-define(['app/lib/elements/div', 'app/lib/elements/image', 'app/lib/elements/container', 'app/lib/elements/text', 'app/lib/elements/grid'], 
-        function (div, image, container, text, grid) {
+define(['app/lib/elements/div', 'app/lib/elements/image', 'app/lib/elements/text', 'app/lib/elements/grid'], 
+        function (div, image, text, grid) {
     "use strict";
 
     // Given a base element, calls a function to extend
@@ -15,8 +15,6 @@ define(['app/lib/elements/div', 'app/lib/elements/image', 'app/lib/elements/cont
         
         if (type === 'div') {
             div(base_element, success, params);
-        } else if (type === 'container') {
-            container(base_element, success);
         } else if (type === 'grid') {
             grid(base_element, success);
         } else if (type === 'text') {

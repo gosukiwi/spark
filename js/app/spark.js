@@ -78,9 +78,9 @@ define([
             $('div#elements i')
                 .click(function () {
                     var name = $(this).attr('id').split('-')[2];
-                    try {
+                    //try {
                         canvas.curr().add(name);
-                    } catch (e) {
+                    /*} catch (e) {
                         modal
                             .title('Oops!')
                             .content(e)
@@ -90,7 +90,7 @@ define([
                                 }
                             })
                             .show();
-                    }
+                    }*/
                 })
                 .each(function (i, el) {
                     tooltip.bind(el);
