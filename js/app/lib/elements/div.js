@@ -5,29 +5,21 @@ define(['underscore', 'jquery', 'jaf/view'],
         function (_, $, view) {
     "use strict";
     
-    function extend (div) {
-        div.type = 'div';
-        div.el(view('elements/div.mustache'));
-        div.isContainer = true;
-        return div;
-    }
-
     return function (element, success, params) {
-        var form,
-            el;
-
-        el = extend(element);
         params = params || {};
-
-        success(el);
-
+        
+        element.type = 'div';
+        element.el(view('elements/div.mustache'));
+        element.isContainer = true;
+        
         // if we have to automatically create children
         if(params.mode !== 'no-auto-child') {
             // add a para
-            el.add('text');
+            element.add('text');
+            // select it again
+            element.selected(true);
         }
         
-        // select it again
-        el.selected(true);
+        success(element);
     };
 });
