@@ -8,10 +8,16 @@ define(['underscore', 'jquery', 'jaf/presenter', 'jaf/view', 'jaf/collection', '
         
     function draw() {
         var container = el.find('#external-css-list-container'),
-            list = view('spark-ui/external-css.mustache', { links: external_css.plain() });
+            list = view('spark-ui/external-css.mustache', { links: external_css.plain() }),
+            css_imports = $('#canvas').contents().find('#canvas-external-css');
             
         container.empty().html(list);
         container.find('i').click(remove_link);
+        
+        css_imports.empty();
+        external_css.each(function (item) {
+            css_imports.append('@import url("' + item.get('src') + '");');
+        });
     }
     
     function add_link() {

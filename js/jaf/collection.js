@@ -22,6 +22,10 @@ define(['underscore', 'jaf/eventer'], function (_, eventer) {
                 return this;
             },
             
+            'each': function (fn) {
+                return _.each(list, fn);
+            },
+            
             // find an item in the collection, can either be called with
             // the item instance or the model guid
             'find': function (findee) {
