@@ -36,7 +36,7 @@ define([
             saveobj;
         
         function get_tree(root) {
-            var output = [{ type: root.type, props: root.properties.props() }];
+            var output = [{ type: root.type, props: root.properties.plain() }];
             
             if(root.children()) {
                 _.each(root.children(), function (child) {
@@ -56,6 +56,7 @@ define([
         saveobj = {
             'elements': get_tree(canvas),
             'css': css,
+            'external_css': globals.external_css,
             'library': globals.library
         };
         
@@ -106,6 +107,8 @@ define([
             canvas.css(saveobj.css);
             // set the library
             globals.library = saveobj.library || {};
+            // set external css
+            globals.external_css = saveobj.external_css || [];
             // create elements
             visit(saveobj.elements);
             
@@ -161,6 +164,7 @@ define([
                         canvas.clear();
                         canvas.css('');
                         globals.library = {};
+                        globals.external_css = {};
                         display_load_dialog();
                     },
                     'Cancel': function () {

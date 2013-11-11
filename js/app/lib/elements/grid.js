@@ -11,7 +11,6 @@ define(['underscore', 'jquery', 'jaf/view', 'app/lib/modal-dialog', 'app/lib/ele
         var container;
         
         div_generator(element, function (elem) {
-            //success(elem);
             container = elem;
             container.properties.set('class', 'container_12');
         }, { mode: 'no-auto-child' });

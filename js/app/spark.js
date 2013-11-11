@@ -24,7 +24,7 @@ define([
         'properties': presenter_properties,
         'css': presenter_css,
         'menu': presenter_top_menu,
-        'external-css': presenter_external_css
+        'external_css': presenter_external_css
     };
 
     // Create a canvas and save it
@@ -62,6 +62,7 @@ define([
         .on('savefile-loaded', function (params) {
             presenters.css.val(params.css);
             presenters.library.redraw();
+            presenters.external_css.reloadGlobals();
         })
         .on('generate-savefile', function (savefile) {
             presenters.menu.css(presenters.css.val());
@@ -69,7 +70,7 @@ define([
         .init(canvas);
     
     // extermal css
-    presenters['external-css'].init();
+    presenters.external_css.init();
     
     return {
         // Binding and jquery ui initialization

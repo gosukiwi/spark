@@ -68,6 +68,19 @@ define(['underscore', 'jaf/eventer'], function (_, eventer) {
                 return _.map(list, function (item) {
                     return item.plain();
                 });
+            },
+            
+            // deletes all elements in the collection
+            'empty': function () {
+                list = [];
+                
+                // chainability
+                return this;
+            },
+            
+            // returns the length of the collection
+            'length': function () {
+                return list.length;
             }
         };
     };

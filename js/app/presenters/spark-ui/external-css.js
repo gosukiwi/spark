@@ -1,5 +1,5 @@
 // external css presenter
-define(['underscore', 'jquery', 'jaf/presenter', 'jaf/view', 'jaf/collection', 'jaf/model'], function (_, $, presenter, view, collection, model) {
+define(['underscore', 'jquery', 'jaf/presenter', 'jaf/view', 'jaf/collection', 'jaf/model', 'jaf/globals'], function (_, $, presenter, view, collection, model, globals) {
     "use strict";
     
     var el = $('#external-css-container'),
@@ -34,6 +34,15 @@ define(['underscore', 'jquery', 'jaf/presenter', 'jaf/view', 'jaf/collection', '
         var guid = $(this).attr('guid');
         external_css.remove(guid);
     }
+    
+    // save this collection to globals
+    function save_global() {
+        var obj = [];
+        external_css.each(function (item) {
+            obj.push(item.get('src'));
+        });
+        globals.external_css = obj;
+    }
         
     ext_css_presenter = presenter.extend({
         init: function () {
@@ -41,6 +50,7 @@ define(['underscore', 'jquery', 'jaf/presenter', 'jaf/view', 'jaf/collection', '
             
             external_css.on('added removed', function () {
                 draw();
+                save_global();
             });
             
             el.find('#tb-external-css')
@@ -51,6 +61,14 @@ define(['underscore', 'jquery', 'jaf/presenter', 'jaf/view', 'jaf/collection', '
                 });
             
             btn.click(add_link);
+        },
+        
+        reloadGlobals: function () {
+            external_css.empty();
+            _.each(globals.external_css, function (item) {
+                external_css.add(model.extend({ src: item }));
+            });
+            draw();
         }
     });
     
