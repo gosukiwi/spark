@@ -16,7 +16,7 @@
 * Events:
 *  selected - Triggers when the element is selected
 */
-define(['jaf/eventer', 'jaf/model', 'md5', 'app/lib/history', 'app/lib/elements/elementFactory'], 
+define(['jaf/eventer', 'jaf/model', 'md5', 'app/lib/history', 'app/lib/elements/element-factory'], 
         function (eventer, model, md5, history, factory) {
     "use strict";
     

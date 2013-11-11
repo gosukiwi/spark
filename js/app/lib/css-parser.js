@@ -21,5 +21,5 @@ define(['jaf/globals'], function (globals) {
         }
 
         return css;
-    }
+    };
 });

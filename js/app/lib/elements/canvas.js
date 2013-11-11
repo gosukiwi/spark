@@ -4,7 +4,7 @@
 define([
         'jquery', 
         'underscore', 
-        'app/lib/cssParser', 
+        'app/lib/css-parser', 
         'app/lib/elements/element', 
         'jaf/eventer'
     ], function ($, _, cssParser, element, eventer) {
