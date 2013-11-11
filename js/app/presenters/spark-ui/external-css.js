@@ -3,9 +3,9 @@ define(['underscore', 'jquery', 'jaf/presenter', 'jaf/view', 'jaf/collection', '
     "use strict";
     
     var el = $('#external-css-container'),
-        external_css = collection(),
-        ext_css_presenter;
+        external_css = collection();
         
+    // draw all items
     function draw() {
         var container = el.find('#external-css-list-container'),
             list = view('spark-ui/external-css.mustache', { links: external_css.plain() }),
@@ -20,6 +20,7 @@ define(['underscore', 'jquery', 'jaf/presenter', 'jaf/view', 'jaf/collection', '
         });
     }
     
+    // add an item
     function add_link() {
         var input = el.find('#tb-external-css');
         if(!input.val()) {
@@ -30,6 +31,7 @@ define(['underscore', 'jquery', 'jaf/presenter', 'jaf/view', 'jaf/collection', '
         input.val('');
     }
     
+    // remove an item
     function remove_link() {
         var guid = $(this).attr('guid');
         external_css.remove(guid);
@@ -44,7 +46,8 @@ define(['underscore', 'jquery', 'jaf/presenter', 'jaf/view', 'jaf/collection', '
         globals.external_css = obj;
     }
         
-    ext_css_presenter = presenter.extend({
+    // return the presenter
+    return presenter.extend({
         init: function () {
             var btn = el.find('#btn-add-external-css');
             
@@ -71,6 +74,4 @@ define(['underscore', 'jquery', 'jaf/presenter', 'jaf/view', 'jaf/collection', '
             draw();
         }
     });
-    
-    return ext_css_presenter;
 });

@@ -29,7 +29,6 @@ define([
          
         /*
         * Sets the CSS of the canvas.
-        * TODO: Move to spark.js?
         */
         canvas.css = function (text) {
             var css;
